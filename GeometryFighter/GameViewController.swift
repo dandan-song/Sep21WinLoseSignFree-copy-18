@@ -208,7 +208,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             imagePicker.view.removeFromSuperview()
  
         }
-        //scnScene.rootNode.addChildNode(backNode)
+        scnScene.rootNode.addChildNode(backNode)
 
 
     }
