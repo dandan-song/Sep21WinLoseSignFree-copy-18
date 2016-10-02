@@ -157,6 +157,8 @@
 				TargetAttributes = {
 					35A5CB4E1B9E040900C6FF5B = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 9Y89Z8N828;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -325,10 +327,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9Y89Z8N828;
 				INFOPLIST_FILE = GeometryFighter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blogdns.songbird.Fighting-with-Real-Ghost";
 				PRODUCT_NAME = "Fighting with Real Ghost";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -336,10 +340,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9Y89Z8N828;
 				INFOPLIST_FILE = GeometryFighter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blogdns.songbird.Fighting-with-Real-Ghost";
 				PRODUCT_NAME = "Fighting with Real Ghost";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
