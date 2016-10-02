@@ -196,12 +196,13 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             
             scnScene!.background.contents =
                 [
-                    UIImage(named: path+"_right.png") as UIImage!,  //-z  0003
-                    UIImage(named: path+"_left.png") as UIImage!,   //+z  0001
-                    UIImage(named: path+"_top.png") as UIImage!,    //+y  0006
-                    UIImage(named: path+"_bottom.png") as UIImage!, //-y  0005
                     UIImage(named: path+"_front.png") as UIImage!,  //+x  0004
                     UIImage(named: path+"_back.png") as UIImage!,   //-x  0002
+                    UIImage(named: path+"_top.png") as UIImage!,    //+y  0006
+                    UIImage(named: path+"_bottom.png") as UIImage!, //-y  0005
+                    UIImage(named: path+"_left.png") as UIImage!,   //+z  0001
+                    UIImage(named: path+"_right.png") as UIImage!,  //-z  0003
+                    
             ]
           
             imagePicker.view.removeFromSuperview()
