@@ -39,6 +39,7 @@ class GameHelper {
 
   var lives:Int
     var level:Int
+    var totalScore:Int
   var state = GameStateType.TapToPlay
   
     
@@ -56,6 +57,7 @@ class GameHelper {
     highScore = 0
     currentT = 0
     lives = 3
+    totalScore = 0
     
     let defaults = NSUserDefaults.standardUserDefaults()
    // score = defaults.integerForKey("lastScore")
@@ -67,12 +69,15 @@ class GameHelper {
   }
   
   func saveState() {
-    //level = 18
+   //level = 0
+    totalScore = totalScore + score
+    print("totalScore:", totalScore)
     highScore = max(currentT, highScore)
     let defaults = NSUserDefaults.standardUserDefaults()
-   // defaults.setInteger(lastScore, forKey: "lastScore")
+
     defaults.setInteger(highScore, forKey: "highScore")
     defaults.setInteger(level, forKey: "level")
+    defaults.setInteger(totalScore, forKey: "totalScore")
     NSUserDefaults.standardUserDefaults().synchronize()
   }
   

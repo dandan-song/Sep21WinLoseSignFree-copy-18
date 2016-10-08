@@ -63,6 +63,9 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var endTime = 10
     var backGround = 0
     let imagePicker = UIImagePickerController();
+    //var r1 = 0
+    var playGroundN = 0
+  
 
     
 
@@ -70,8 +73,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        //scnScene.rootNode.addChildNode(backNode)
-
+        //r1 = 0
         setupView()
         //setupScene()
         setupCamera()
@@ -83,6 +85,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         setupSplash()
         //game.level = -1
         //print("level:", game.level)
+        
         
         
         if motionManager.deviceMotionAvailable {
@@ -129,13 +132,17 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         imagePicker.toolbarHidden = true
         imagePicker.navigationBarHidden = true
         imagePicker.showsCameraControls  = false
-        //imagePicker.cameraOverlayView!.bounds = self.view.bounds
+        imagePicker.modalPresentationStyle = UIModalPresentationStyle.FullScreen
+        imagePicker.cameraOverlayView!.bounds = self.view.bounds
         /*self.presentViewController(imagePicker, animated: true,
-                                   completion: nil)*/
+         completion: nil)*/
         
-        imagePicker.cameraViewTransform = CGAffineTransformMakeScale(1.35, 1.35);
-        imagePicker.view.bounds=self.view.bounds  //chuck
+        //imagePicker.cameraViewTransform = CGAffineTransformMakeScale(1.35, 1.35);
+        //imagePicker.cameraViewTransform = CGAffineTransformMakeScale(13.3, 13.3);
+        //imagePicker.view.bounds=self.view.bounds  //chuck
+        imagePicker.view.transform = CGAffineTransformMakeScale(2, 2);
         //self.view.addSubview(imagePicker.view)
+
         //}
         
         scnView = SCNView();
@@ -155,31 +162,41 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
         setupScene()
     }
+    func switchScene(playGroundN: Int){
+        switch playGroundN % 7 {
+            
+        case 1:
+            backScene = SCNScene(named: "GeometryFighter.scnassets/Textures/playground1.scn")
+        case 2:
+            backScene = SCNScene(named: "GeometryFighter.scnassets/Textures/playground2.scn")
+        case 3:
+            backScene = SCNScene(named: "GeometryFighter.scnassets/Textures/playground3.scn")
+        case 4:
+            backScene = SCNScene(named: "GeometryFighter.scnassets/Textures/playground4.scn")
+        case 5:
+            backScene = SCNScene(named: "GeometryFighter.scnassets/Textures/playground5.scn")
+        case 6:
+            backScene = SCNScene(named: "GeometryFighter.scnassets/Textures/playground6.scn")
+        default:
+            backScene = SCNScene(named: "GeometryFighter.scnassets/Textures/playground0.scn")
+        }
+    }
     func setupScene()
     {
         
         print("backGround:backGround", backGround)
         
-/* it says for a skybox to use 6 pictues
-         //version3 - pass array in directly (NOT through SCNMaterialProperty!!!!)
-         scene.background.contents = @[[NSImage imageNamed:@"right.tga"],
-         [NSImage imageNamed:@"left.tga"],
-         [NSImage imageNamed:@"top.tga"],
-         [NSImage imageNamed:@"bottom.tga"],
-         [NSImage imageNamed:@"back.tga"],
-         [NSImage imageNamed:@"front.tga"]
- */
         backNode.removeFromParentNode()
         for node in ghostNode.childNodes {
             
-                node.removeFromParentNode()
+            node.removeFromParentNode()
             
         }
-
+        
         if backGround == 0 {
             backScene = SCNScene();
             backNode = backScene.rootNode.clone()
-
+            
             //need to turn on imagepicker
             self.view.addSubview(imagePicker.view)
             
@@ -187,13 +204,69 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             self.view.addSubview(scnView)
             scnScene.background.contents =
             "GeometryFighter.scnassets/Textures/background_Transparent1.png"
-        }else{
-            backScene = SCNScene(named: "GeometryFighter.scnassets/Textures/game1.scn")
+        }
+        else if backGround == 1 {
+            
+            let r1 = Int(arc4random_uniform(9))
+            if r1 == 0 {
+                backScene = SCNScene(named: "GeometryFighter.scnassets/Textures/game.scn")
+                
+            }else if r1 == 1 {
+                backScene = SCNScene(named: "GeometryFighter.scnassets/Textures/cloudeBaloon.scn")
+                
+            }else{
+                switchScene(playGroundN)
+                playGroundN = playGroundN+1
+            }
             backNode = backScene.rootNode.clone()
+            scnScene.background.contents=backScene.background.contents
+            imagePicker.view.removeFromSuperview()
             
-            //scnScene.background.contents=backScene.background.contents
-            let path = "GeometryFighter.scnassets/Textures/envskybox"
+        }else{
             
+            var path = ""
+            
+            if backGround == 2 {
+                
+                path = "GeometryFighter.scnassets/Textures/envskybox"
+                let r11 = Int(arc4random_uniform(8))
+                if r11 == 0{
+                    backScene = SCNScene(named: "GeometryFighter.scnassets/Textures/cactusLong.scn")
+                }else{
+                    switchScene(playGroundN)
+                    playGroundN = playGroundN+1
+                }
+                
+            }else if backGround == 3 {
+                
+                path = "GeometryFighter.scnassets/Textures/beach"
+                backScene = SCNScene(named: "GeometryFighter.scnassets/Textures/latern.scn")
+            }
+            else if backGround == 4 {
+                
+                let r1 = Int(arc4random_uniform(8))
+               
+                if r1 == 0 {
+                    backScene = SCNScene(named: "GeometryFighter.scnassets/Textures/lutosFlower.scn")
+                }else{
+                    switchScene(playGroundN)
+                    playGroundN = playGroundN+1
+                }
+                path = "GeometryFighter.scnassets/Textures/moonWater"
+                
+            }else if backGround == 5 {
+                
+                switchScene(playGroundN)
+                playGroundN = playGroundN+1
+                path = "GeometryFighter.scnassets/Textures/sun"
+                
+            }else if backGround == 6 {
+                
+                backScene = SCNScene(named: "GeometryFighter.scnassets/Textures/door.scn")
+                path = "GeometryFighter.scnassets/Textures/wave"
+            }
+            
+            backNode = backScene.rootNode.clone()
             scnScene!.background.contents =
                 [
                     UIImage(named: path+"_front.png") as UIImage!,  //+x  0004
@@ -204,13 +277,13 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                     UIImage(named: path+"_right.png") as UIImage!,  //-z  0003
                     
             ]
-          
+            
             imagePicker.view.removeFromSuperview()
- 
+            
         }
         scnScene.rootNode.addChildNode(backNode)
-
-
+        
+        
     }
     
     func setupCamera() {
@@ -339,11 +412,6 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             let antimoveBy = SCNAction.reversedAction(moveBy)
             let fadeOut = SCNAction.fadeOutWithDuration(1)
             let fadeIn = SCNAction.fadeInWithDuration(1)
-           //let swirl = SCNAction.rotateByAngle(90.0, aroundAxis: SCNVector3Make(0, 5, 5), duration: 4)
-            //let antiSwirl = SCNAction.reversedAction(swirl)
-            
-          // let fadeSequence = SCNAction.repeatActionForever(SCNAction.sequence([swirl, fadeIn, antiSwirl(), fadeOut, fadeIn]))
-           // geometryNode.runAction(fadeSequence)
             
             let sequence = SCNAction.sequence([grow, shrink(), spine, antiSpine(), moveBy, antimoveBy(), moveTo, shrink(),fadeIn, fadeOut,fadeIn,FinalmoveTo])
             geometryNode.runAction(sequence)
@@ -631,69 +699,69 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             case 2:
                 distance = 30; endTime = 60; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 3:
-                distance = 60; endTime = 60; ghostSize1 = 1; ghostSize2 = 2; backGround = 1
+                distance = 60; endTime = 60; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 4:
                 distance = 90; endTime = 60; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 5:
                 distance = 60; endTime = 60; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 6:
-                distance = 30; endTime = 60; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 2
+                distance = 30; endTime = 60; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 7:
                 distance = 15; endTime = 90; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 8:
                 distance = 30; endTime = 90; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 9:
-                distance = 60; endTime = 90; ghostSize1 = 1; ghostSize2 = 2; backGround = 3
+                distance = 60; endTime = 90; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 10:
                 distance = 90; endTime = 90; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 11:
                 distance = 60; endTime = 90; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 12:
-                distance = 60; endTime = 90; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 1
+                distance = 60; endTime = 90; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 13:
                 distance = 30; endTime = 120; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 14:
                 distance = 15; endTime = 120; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 15:
-                distance = 30; endTime = 120; ghostSize1 = 1; ghostSize2 = 2; backGround = 2
+                distance = 30; endTime = 120; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 16:
                 distance = 60; endTime = 120; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 17:
                 distance = 90; endTime = 120; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 18:
-                distance = 60; endTime = 120; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 3
+                distance = 60; endTime = 120; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 19:
                 distance = 30; endTime = 150; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 20:
                 distance = 15; endTime = 150; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 21:
-                distance = 30; endTime = 150; ghostSize1 = 1; ghostSize2 = 2; backGround = 2
+                distance = 30; endTime = 150; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 22:
                 distance = 60; endTime = 150; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 23:
                 distance = 90; endTime = 150; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 24:
-                distance = 60; endTime = 150; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 3
+                distance = 60; endTime = 150; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 25:
                 distance = 30; endTime = 180; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 26:
                 distance = 15; endTime = 180; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 27:
-                distance = 30; endTime = 180; ghostSize1 = 1; ghostSize2 = 2; backGround = 2
+                distance = 30; endTime = 180; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 28:
                 distance = 60; endTime = 180; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 29:
                 distance = 90; endTime = 180; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 30:
-                distance = 60; endTime = 180; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 3
+                distance = 60; endTime = 180; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
 
             default:
-                distance = 30; endTime = 210; ghostSize1 = 1; ghostSize2 = 2; backGround = 1
+                distance = 30; endTime = 210; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             }
             
             print("level:", game.level)
             print("endTime1:", endTime)
-            game.saveState()
+            //game.saveState()
            // setupView()
             setupScene()
 
@@ -775,7 +843,7 @@ extension GameViewController: SCNSceneRendererDelegate {
                 spawnShape()
                 var minN = 10.0 - Float(game.score)
                 var maxN = 15.0 - Float(game.score)
-                if game.level > 24 {
+                if (game.level % 31) > 24 {
                     minN = 20.0 - Float(game.score)
                     maxN = 25.0 - Float(game.score)
                 }
