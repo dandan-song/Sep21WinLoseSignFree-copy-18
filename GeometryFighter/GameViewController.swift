@@ -34,13 +34,13 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var scnView: SCNView!
     var scnScene: SCNScene!
     var backScene: SCNScene!
-
-     var cameraNode: SCNNode!
+    
+    var cameraNode: SCNNode!
     var ghostNode: SCNNode!
     var rootsplashNode: SCNNode!
     var rootsplashNode2: SCNNode!
     var backNode: SCNNode!
-
+    
     //   var geometry:SCNGeometry!
     var spawnTime:NSTimeInterval = 0
     var game = GameHelper.sharedInstance
@@ -57,7 +57,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var timeInterval = 0
     var CleanSceneCurrentTime = 0
     var plane = SCNPlane(width: 5, height: 5)
-   
+    
     var distance: Float!
     var ghostSize1: Float!
     var ghostSize2: Float!
@@ -66,9 +66,9 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     let imagePicker = UIImagePickerController();
     //var r1 = 0
     var playGroundN = 0
-  
-
-   
+    
+    
+    
     internal func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController)
     {
         gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
@@ -95,7 +95,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             
         }
     }
-
+    
     //initiate gamecenter
     func authenticateLocalPlayer(){
         
@@ -113,10 +113,16 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         
     }
-
+    //shows leaderboard screen
+    func showLeader() {
+        let vc = self.view?.window?.rootViewController
+        let gc = GKGameCenterViewController()
+        gc.gameCenterDelegate = self
+        vc?.presentViewController(gc, animated: true, completion: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         //r1 = 0
         setupView()
         //setupScene()
@@ -186,24 +192,24 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         //imagePicker.view.bounds=self.view.bounds  //chuck
         imagePicker.view.transform = CGAffineTransformMakeScale(2, 2);
         //self.view.addSubview(imagePicker.view)
-
+        
         //}
         
         scnView = SCNView();
-
+        
         scnView.frame = self.view.bounds
         scnView.backgroundColor = UIColor.clearColor();
         scnView.autoenablesDefaultLighting = true
         scnView.allowsCameraControl = false
         scnView.delegate = self
         scnView.playing = true
-                self.view.addSubview(scnView)
+        self.view.addSubview(scnView)
         scnScene = SCNScene();
         scnView.scene = scnScene
         backNode = SCNNode()
         ghostNode = SCNNode();
         scnScene.rootNode.addChildNode(ghostNode)
-
+        
         setupScene()
     }
     func switchScene(playGroundN: Int){
@@ -289,7 +295,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             else if backGround == 4 {
                 
                 let r1 = Int(arc4random_uniform(8))
-               
+                
                 if r1 == 0 {
                     backScene = SCNScene(named: "GeometryFighter.scnassets/Textures/lutosFlower.scn")
                 }else{
@@ -340,7 +346,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         rootsplashNode.position = SCNVector3(x: 0, y: 0, z: 10)
         rootsplashNode2 = SCNNode()
         rootsplashNode2.position = SCNVector3(x: 0, y: 0, z: -10)
-
+        
         scnScene.rootNode.addChildNode(rootsplashNode)
         rootsplashNode.addChildNode(rootsplashNode2)
     }
@@ -350,13 +356,13 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         var geometry:SCNGeometry
         var randomR:Float
-       
-            randomR = Float.random(min: ghostSize1, max: ghostSize2)
         
-            geometry = SCNSphere(radius: CGFloat(randomR))
+        randomR = Float.random(min: ghostSize1, max: ghostSize2)
+        
+        geometry = SCNSphere(radius: CGFloat(randomR))
         let color = UIColor.random()
-  
-
+        
+        
         geometry.materials.first?.diffuse.contents = color
         let geometryNode = SCNNode(geometry: geometry)
         
@@ -365,12 +371,12 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         geometryNode.physicsBody?.affectedByGravity = false
         geometryNode.opacity = 0.2
         //geometryNode.geometry?.materials.first?.diffuse.contents = "GeometryFighter.scnassets/Textures/ghostSkingT.png"
-       geometryNode.geometry?.materials.first?.normal.contents = "GeometryFighter.scnassets/Textures/ghostskin2ghostSkin.png"
+        geometryNode.geometry?.materials.first?.normal.contents = "GeometryFighter.scnassets/Textures/ghostskin2ghostSkin.png"
         //geometryNode.geometry?.materials.first?.emission.contents = "GeometryFighter.scnassets/Textures/img_ball_emission.png"
-       
+        
         
         if (true)
-        
+            
         {
             var eyes1:SCNGeometry
             eyes1 = SCNSphere(radius: 0.5*CGFloat(randomR))
@@ -380,7 +386,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             eyesNode1.position = SCNVector3(x: -0.90*randomR, y: 0.5*randomR, z: 0.0)
             eyesNode1.geometry?.materials.first?.diffuse.contents = "GeometryFighter.scnassets/Textures/eye.png"
             eyesNode1.name="EYES"
-             let left = SCNAction.moveBy(SCNVector3(x: -0.5*randomR, y: 0.0, z: 0.0), duration: 1)
+            let left = SCNAction.moveBy(SCNVector3(x: -0.5*randomR, y: 0.0, z: 0.0), duration: 1)
             let right = SCNAction.moveBy(SCNVector3(x: 0.5*randomR, y: 0.0, z: 0.0), duration: 1)
             let up = SCNAction.moveBy(SCNVector3(x: 0.0, y: 0.5*randomR, z: 0.0), duration: 1)
             let down = SCNAction.moveBy(SCNVector3(x: 0.0, y: -0.5*randomR, z: 0.0), duration: 1)
@@ -392,11 +398,11 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             let repeatblink1  = SCNAction.repeatActionForever(blink1)
             let repeatblink2  = SCNAction.repeatActionForever(blink2)
             eyesNode1.runAction(repeatblink1)
-          
+            
             /*SCNTransaction.begin()
-            SCNTransaction.setAnimationDuration(3)
-            eyes1.materials.first?.diffuse.contents = "GeometryFighter.scnassets/Textures/eye.png"
-            SCNTransaction.commit()*/
+             SCNTransaction.setAnimationDuration(3)
+             eyes1.materials.first?.diffuse.contents = "GeometryFighter.scnassets/Textures/eye.png"
+             SCNTransaction.commit()*/
             
             geometryNode.addChildNode(eyesNode1)
             
@@ -416,7 +422,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             eyesNode2.geometry?.materials.first?.diffuse.contents = "GeometryFighter.scnassets/Textures/eye.png"
             eyesNode2.runAction(repeatblink2)
             eyesNode2.name="EYES"
-
+            
             geometryNode.addChildNode(eyesNode2)
             
             let tear2 = SCNParticleSystem(named: "tear.scnp", inDirectory: nil)!
@@ -441,7 +447,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             let moveTo = SCNAction.moveTo(SCNVector3Make(randomX1, randomY1, randomZ1), duration: 3)
             
             let FinalmoveTo = SCNAction.moveTo(SCNVector3Make(0, 0, 0), duration: 2)
-      
+            
             let grow = SCNAction.scaleBy ( 0.2, duration: 1)
             let shrink = SCNAction.reversedAction(grow)
             
@@ -459,7 +465,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             
             let sequence = SCNAction.sequence([grow, shrink(), spine, antiSpine(), moveBy, antimoveBy(), moveTo, shrink(),fadeIn, fadeOut,fadeIn,FinalmoveTo])
             geometryNode.runAction(sequence)
- 
+            
             
             let trailEmitter = createTrail(color, geometry: geometry)
             geometryNode.addParticleSystem(trailEmitter)
@@ -509,21 +515,22 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             
             
             if (game.lives == 1){
-               /* scnScene.background.contents =
-                "GeometryFighter.scnassets/Textures/backgroundLoose1.png"*/
+                /* scnScene.background.contents =
+                 "GeometryFighter.scnassets/Textures/backgroundLoose1.png"*/
             }
                 
             else if (game.lives == 2){
-             /*   scnScene.background.contents =
-                "GeometryFighter.scnassets/Textures/backgroundLoose.png"*/
+                /*   scnScene.background.contents =
+                 "GeometryFighter.scnassets/Textures/backgroundLoose.png"*/
             }
                 
             else if (game.lives == 3){
-              /*  scnScene.background.contents =
-                "GeometryFighter.scnassets/Textures/background_Transparent1.png"*/
+                /*  scnScene.background.contents =
+                 "GeometryFighter.scnassets/Textures/background_Transparent1.png"*/
             }
             else if (game.lives == 0){
                 game.saveState()
+                saveHighscore(game.getHighScore())
                 
                 labelNode.text = "Survived: \(game.currentT) sec"
                 //game.currentT = 0
@@ -544,7 +551,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                     splashNodes["GameOver"]?.hidden = true
                     game.currentT = 0
                 }
-               // game.saveState()
+                // game.saveState()
                 if (game.state == .Playing){
                     splashNodes["GameOver"]?.hidden = false
                     game.playSound(scnScene.rootNode, name: "GameOver")
@@ -561,6 +568,8 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             //print("endTime:", endTime)
             if (game.state == .Playing&&game.currentT>=endTime){
                 game.saveState()
+                saveHighscore(game.getHighScore())
+                
                 labelNode.text = "level passed👻"
                 skScene.addChild(labelNode)
                 
@@ -600,7 +609,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         
     }
-
+    
     func createTrail(color: UIColor, geometry: SCNGeometry) -> SCNParticleSystem {
         let trail = SCNParticleSystem(named: "Trail.scnp", inDirectory: nil)!
         trail.particleColor = UIColor.whiteColor1()
@@ -609,7 +618,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         return trail
     }
     func createSound() -> SCNAction {
-       // let sound = SCNAction
+        // let sound = SCNAction
         game.loadSound("Laugh",
                        fileNamed: "GeometryFighter.scnassets/Sounds/ghostLaugh.wav")
         game.loadSound("Alligator",
@@ -666,8 +675,8 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         ]
         let maxValue = SoundList.count
         let rand = Int(arc4random_uniform(UInt32(maxValue)))
-   
-
+        
+        
         
         let actulyLaugh = SCNAction.playAudioSource(game.sounds[SoundList[rand]]!, waitForCompletion: false)
         let waitAction = SCNAction.waitForDuration(Double.random(min: 10, max: 20))
@@ -675,7 +684,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let repeatSound = SCNAction.repeatActionForever(sequenceSound)
         return repeatSound
     }
-
+    
     
     func setupHUD() {
         game.hudNode.position = SCNVector3(x: 0.0, y: 4.0, z: 0.0)
@@ -684,7 +693,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         //cameraNode.addChildNode(game.hudNode)
     }
     
-     func showSplash(splashName:String) {
+    func showSplash(splashName:String) {
         for (name,node) in splashNodes {
             if name == splashName {
                 node.hidden = false
@@ -704,9 +713,9 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         splashNode.geometry?.materials.first?.diffuse.contents = "GeometryFighter.scnassets/Textures/ghost1.png"
         splashNodes["TapToPlay"] = splashNode
         rootsplashNode2.addChildNode(splashNode)
-      //  return splashNode
+        //  return splashNode
         
-       
+        
     }
     
     func setupSounds() {
@@ -798,29 +807,20 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 distance = 90; endTime = 180; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 30:
                 distance = 60; endTime = 180; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
-
+                
             default:
                 distance = 30; endTime = 210; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             }
             
             print("level:", game.level)
             print("endTime1:", endTime)
-            //game.saveState()
-           // setupView()
+            
             setupScene()
-
+            
             start = NSDate()
             game.state = .Playing
             showSplash("")
-            /*
-           scnScene.background.contents =
-           "GeometryFighter.scnassets/Textures/background_Transparent.png"
-            */
-          /*for node in scnScene.rootNode.childNodes {
-                if (node != game.hudNode&&node != rootsplashNode){
-                node.removeFromParentNode()
-                }
-            }*/
+            
             return
         }
         
@@ -838,12 +838,12 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                                 rotation: result.node.presentationNode.rotation)
                 
                 result.node.removeFromParentNode()
-
+                
                 handleGoodCollision();
-            
+                
             }
             
-                    }
+        }
     }
     
     func handleGoodCollision() {
@@ -857,7 +857,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
     }
     
-
+    
     
     func createExplosion(geometry: SCNGeometry, position: SCNVector3,
                          rotation: SCNVector4) {
