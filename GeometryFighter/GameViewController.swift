@@ -175,7 +175,6 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func setupView() {
         
         backGround = 1
-        //if backGround == 1 {
         imagePicker.delegate = self
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         {
@@ -215,29 +214,10 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             print ("no camera or restricted.")
 
             hasCamera = false
-            /*
-             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary)
-             {
-             imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary;
-             }
-             else
-             {
-             imagePicker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum;
-             }
-             self.presentViewController(imagePicker, animated: true,
-             completion: nil)
-             */
         }
-        /*self.presentViewController(imagePicker, animated: true,
-         completion: nil)*/
         
-        //imagePicker.cameraViewTransform = CGAffineTransformMakeScale(1.35, 1.35);
-        //imagePicker.cameraViewTransform = CGAffineTransformMakeScale(13.3, 13.3);
-        //imagePicker.view.bounds=self.view.bounds  //chuck
         imagePicker.view.transform = CGAffineTransformMakeScale(2, 2);
-        //self.view.addSubview(imagePicker.view)
         
-        //}
         
         scnView = SCNView();
         
@@ -647,7 +627,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 scnScene.rootNode.runAction(SCNAction.waitForDurationThenRunBlock(5) { (node:SCNNode!) -> Void in
                     self.showSplash("TapToPlay")
                     self.game.gameCenterNode.hidden = false
-
+                    
                     self.game.state = .TapToPlay
                     splashNode.removeFromParentNode()
                     })
