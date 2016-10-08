@@ -24,11 +24,12 @@ import UIKit
 import SceneKit
 import MobileCoreServices
 import SpriteKit
+import GameKit
 
 import CoreMotion
 
 
-class GameViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class GameViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,GKGameCenterControllerDelegate {
     
     var scnView: SCNView!
     var scnScene: SCNScene!
@@ -67,8 +68,51 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var playGroundN = 0
   
 
-    
+   
+    internal func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController)
+    {
+        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+        
+    }
+    func saveHighscore(score:Int) {
+        
+        //check if user is signed in
+        if GKLocalPlayer.localPlayer().authenticated {
+            
+            let scoreReporter = GKScore(leaderboardIdentifier: "com.blogdns.songbird.FightWithRealGhosts.leaderboard.score") //leaderboard id here
+            
+            scoreReporter.value = Int64(score) //score variable here (same as above)
+            
+            let scoreArray: [GKScore] = [scoreReporter]
+            GKScore.reportScores(
+                scoreArray, withCompletionHandler:{
+                    (error) -> Void in
+                    if error != nil {
+                        print("error ", error)
+                    }
+                }
+            )
+            
+        }
+    }
 
+    //initiate gamecenter
+    func authenticateLocalPlayer(){
+        
+        let localPlayer = GKLocalPlayer.localPlayer()
+        
+        localPlayer.authenticateHandler = {(viewController, error) -> Void in
+            
+            if (viewController != nil) {
+                self.presentViewController(viewController!, animated: true, completion: nil)
+            }
+                
+            else {
+                print((GKLocalPlayer.localPlayer().authenticated))
+            }
+        }
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +130,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         //game.level = -1
         //print("level:", game.level)
         
-        
+        authenticateLocalPlayer()
         
         if motionManager.deviceMotionAvailable {
             
@@ -786,8 +830,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         if hitResults.count > 0 {
             
-            let result: AnyObject! = hitResults[0]
-            
+            let result: SCNHitTestResult! = hitResults[0]
             if result.node.name == "GHOST" ||
                 result.node.name == "EYES"   {
                 createExplosion(result.node.geometry!,
