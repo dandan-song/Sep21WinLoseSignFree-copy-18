@@ -66,6 +66,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     let imagePicker = UIImagePickerController();
     //var r1 = 0
     var playGroundN = 0
+    var hasCamera = true
     
     
     
@@ -176,14 +177,57 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         backGround = 1
         //if backGround == 1 {
         imagePicker.delegate = self
-        imagePicker.sourceType =
-            UIImagePickerControllerSourceType.Camera
-        imagePicker.allowsEditing = false
-        imagePicker.toolbarHidden = true
-        imagePicker.navigationBarHidden = true
-        imagePicker.showsCameraControls  = false
-        imagePicker.modalPresentationStyle = UIModalPresentationStyle.FullScreen
-        imagePicker.cameraOverlayView!.bounds = self.view.bounds
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
+        {
+            let status = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
+            if status == AVAuthorizationStatus.Authorized {
+                self.hasCamera = true
+                print ("has camera")
+                // Show camera
+            } else if status == AVAuthorizationStatus.NotDetermined {
+                // Request permission
+                AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: { (granted) -> Void in
+                    if granted {
+                        // Show camera
+                        self.hasCamera = true
+                        print ("has camera")
+
+                    }
+                })
+            } else {
+                self.hasCamera = false
+                print ("has camera but access denied")
+
+                // User rejected permission. Ask user to switch it on in the Settings app manually
+            }
+            if hasCamera {
+                imagePicker.sourceType =
+                    UIImagePickerControllerSourceType.Camera
+                
+                imagePicker.allowsEditing = false
+                imagePicker.toolbarHidden = true
+                imagePicker.navigationBarHidden = true
+                imagePicker.showsCameraControls  = false
+                imagePicker.modalPresentationStyle = UIModalPresentationStyle.FullScreen
+                imagePicker.cameraOverlayView!.bounds = self.view.bounds
+            }
+        } else {
+            print ("no camera or restricted.")
+
+            hasCamera = false
+            /*
+             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary)
+             {
+             imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+             }
+             else
+             {
+             imagePicker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum;
+             }
+             self.presentViewController(imagePicker, animated: true,
+             completion: nil)
+             */
+        }
         /*self.presentViewController(imagePicker, animated: true,
          completion: nil)*/
         
@@ -241,6 +285,9 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             
             node.removeFromParentNode()
             
+        }
+        if !hasCamera {
+            backGround = 1 + Int(arc4random_uniform(5))
         }
         
         if backGround == 0 {
@@ -530,7 +577,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
             else if (game.lives == 0){
                 game.saveState()
-                saveHighscore(game.getHighScore())
+                saveHighscore(game.totalScore)
                 
                 labelNode.text = "Survived: \(game.currentT) sec"
                 //game.currentT = 0
@@ -561,6 +608,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 }
                 scnScene.rootNode.runAction(SCNAction.waitForDurationThenRunBlock(5) { (node:SCNNode!) -> Void in
                     self.showSplash("TapToPlay")
+                    self.game.gameCenterNode.hidden = false
                     self.game.state = .TapToPlay
                     splashNode.removeFromParentNode()
                     })
@@ -568,7 +616,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             //print("endTime:", endTime)
             if (game.state == .Playing&&game.currentT>=endTime){
                 game.saveState()
-                saveHighscore(game.getHighScore())
+                saveHighscore(game.totalScore)
                 
                 labelNode.text = "level passed👻"
                 skScene.addChild(labelNode)
@@ -598,6 +646,8 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 }
                 scnScene.rootNode.runAction(SCNAction.waitForDurationThenRunBlock(5) { (node:SCNNode!) -> Void in
                     self.showSplash("TapToPlay")
+                    self.game.gameCenterNode.hidden = false
+
                     self.game.state = .TapToPlay
                     splashNode.removeFromParentNode()
                     })
@@ -688,8 +738,13 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     func setupHUD() {
         game.hudNode.position = SCNVector3(x: 0.0, y: 4.0, z: 0.0)
+        game.gameCenterNode.position = SCNVector3(x: 2.3, y: 2.5, z: 0.0)
+       
+
         //game.hudNode.physicsBody = SCNPhysicsBody(type: .Static, shape: nil)
         rootsplashNode2.addChildNode(game.hudNode)
+        rootsplashNode2.addChildNode(game.gameCenterNode)
+
         //cameraNode.addChildNode(game.hudNode)
     }
     
@@ -741,72 +796,89 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         
         if game.state == .TapToPlay {
+            
+            let touch = touches.first
+            let location = touch!.locationInView(scnView)
+            let hitResults = scnView.hitTest(location, options: nil)
+            
+            if hitResults.count > 0 {
+                
+                let result: SCNHitTestResult! = hitResults[0]
+                if result.node.name == "GameCenter"   {
+                    showLeader();
+                    return;
+                }
+                
+            }
+            //not hit a label then do the play action
             game.reset()
             
             game.level = game.level+1
             print("level:", game.level)
             print("endTime:", endTime)
             switch game.level % 31 {
+            case 0:
+                distance = 15; endTime = 60; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 1:
                 distance = 15; endTime = 60; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 2:
                 distance = 30; endTime = 60; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 3:
-                distance = 60; endTime = 60; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
+                distance = 60; endTime = 60; ghostSize1 = 1; ghostSize2 = 2; backGround = 1
             case 4:
                 distance = 90; endTime = 60; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 5:
                 distance = 60; endTime = 60; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 6:
-                distance = 30; endTime = 60; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
+                distance = 30; endTime = 60; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 2
             case 7:
                 distance = 15; endTime = 90; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 8:
                 distance = 30; endTime = 90; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 9:
-                distance = 60; endTime = 90; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
+                distance = 60; endTime = 90; ghostSize1 = 1; ghostSize2 = 2; backGround = 3
             case 10:
                 distance = 90; endTime = 90; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 11:
                 distance = 60; endTime = 90; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 12:
-                distance = 60; endTime = 90; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
+                distance = 60; endTime = 90; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 4
             case 13:
                 distance = 30; endTime = 120; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 14:
                 distance = 15; endTime = 120; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 15:
-                distance = 30; endTime = 120; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
+                distance = 30; endTime = 120; ghostSize1 = 1; ghostSize2 = 2; backGround = 5
             case 16:
                 distance = 60; endTime = 120; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 17:
                 distance = 90; endTime = 120; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 18:
-                distance = 60; endTime = 120; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
+                distance = 60; endTime = 120; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 6
             case 19:
                 distance = 30; endTime = 150; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 20:
                 distance = 15; endTime = 150; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 21:
-                distance = 30; endTime = 150; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
+                distance = 30; endTime = 150; ghostSize1 = 1; ghostSize2 = 2; backGround = 1
             case 22:
                 distance = 60; endTime = 150; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 23:
                 distance = 90; endTime = 150; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 24:
-                distance = 60; endTime = 150; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
+                distance = 60; endTime = 150; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 2
             case 25:
                 distance = 30; endTime = 180; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 26:
                 distance = 15; endTime = 180; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
             case 27:
-                distance = 30; endTime = 180; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
+                distance = 30; endTime = 180; ghostSize1 = 1; ghostSize2 = 2; backGround = 3
             case 28:
                 distance = 60; endTime = 180; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 29:
                 distance = 90; endTime = 180; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
             case 30:
-                distance = 60; endTime = 180; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 0
+                distance = 60; endTime = 180; ghostSize1 = 0.5; ghostSize2 = 1; backGround = 4
                 
             default:
                 distance = 30; endTime = 210; ghostSize1 = 1; ghostSize2 = 2; backGround = 0
@@ -820,7 +892,8 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             start = NSDate()
             game.state = .Playing
             showSplash("")
-            
+            self.game.gameCenterNode.hidden = true
+
             return
         }
         

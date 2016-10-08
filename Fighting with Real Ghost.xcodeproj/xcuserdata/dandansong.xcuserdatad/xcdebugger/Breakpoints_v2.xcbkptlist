@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "415"
-            endingLineNumber = "415"
+            startingLineNumber = "468"
+            endingLineNumber = "468"
             landmarkName = "spawnShape()"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657097.382813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "GameViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -122,7 +122,7 @@
                   moduleName = "Fighting with Real Ghost"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dandansong/augmentProject/realGhost1/gameCenterVersion/final/GeometryFighter/GameUtils/MotionKit.swift"
-                  timestampString = "497590885.668594"
+                  timestampString = "497641095.801482"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "67"
@@ -137,7 +137,7 @@
                   moduleName = "Fighting with Real Ghost"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dandansong/augmentProject/realGhost1/gameCenterVersion/final/GeometryFighter/GameUtils/MotionKit.swift"
-                  timestampString = "497590885.670065"
+                  timestampString = "497641095.802994"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "67"
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657097.382813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "GameViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -190,11 +190,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "354"
-            endingLineNumber = "354"
+            startingLineNumber = "407"
+            endingLineNumber = "407"
             landmarkName = "spawnShape()"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,11 +206,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "352"
-            endingLineNumber = "352"
+            startingLineNumber = "405"
+            endingLineNumber = "405"
             landmarkName = "spawnShape()"
             landmarkType = "7">
          </BreakpointContent>
@@ -222,11 +222,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
             landmarkName = "spawnShape()"
             landmarkType = "7">
          </BreakpointContent>
@@ -238,11 +238,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "357"
-            endingLineNumber = "357"
+            startingLineNumber = "410"
+            endingLineNumber = "410"
             landmarkName = "spawnShape()"
             landmarkType = "7">
          </BreakpointContent>
@@ -254,11 +254,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "372"
-            endingLineNumber = "372"
+            startingLineNumber = "425"
+            endingLineNumber = "425"
             landmarkName = "spawnShape()"
             landmarkType = "7">
          </BreakpointContent>
@@ -270,11 +270,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "373"
-            endingLineNumber = "373"
+            startingLineNumber = "426"
+            endingLineNumber = "426"
             landmarkName = "spawnShape()"
             landmarkType = "7">
          </BreakpointContent>
@@ -295,11 +295,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590884.603635"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "605"
-            endingLineNumber = "605"
+            startingLineNumber = "661"
+            endingLineNumber = "661"
             landmarkName = "cleanScene()"
             landmarkType = "7">
          </BreakpointContent>
@@ -311,11 +311,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "465"
-            endingLineNumber = "465"
+            startingLineNumber = "518"
+            endingLineNumber = "518"
             landmarkName = "spawnShape()"
             landmarkType = "7">
          </BreakpointContent>
@@ -327,11 +327,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "439"
-            endingLineNumber = "439"
+            startingLineNumber = "492"
+            endingLineNumber = "492"
             landmarkName = "spawnShape()"
             landmarkType = "7">
          </BreakpointContent>
@@ -343,11 +343,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "438"
-            endingLineNumber = "438"
+            startingLineNumber = "491"
+            endingLineNumber = "491"
             landmarkName = "spawnShape()"
             landmarkType = "7">
          </BreakpointContent>
@@ -359,11 +359,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657097.382813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -375,12 +375,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657097.382813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
-            landmarkName = "deviceDidMove(motion:error:)"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "deviceDidMove(_:error:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -391,12 +391,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657097.382813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
-            landmarkName = "deviceDidMove(motion:error:)"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "deviceDidMove(_:error:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -439,11 +439,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657097.382813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -455,11 +455,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657097.382813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -471,11 +471,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657097.382813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -487,12 +487,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590884.603635"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "897"
-            endingLineNumber = "897"
-            landmarkName = "renderer(renderer:updateAtTime:)"
+            startingLineNumber = "967"
+            endingLineNumber = "967"
+            landmarkName = "renderer(_:updateAtTime:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -521,11 +521,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "481"
-            endingLineNumber = "481"
+            startingLineNumber = "534"
+            endingLineNumber = "534"
             landmarkName = "GameViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -537,11 +537,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590884.603635"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "669"
-            endingLineNumber = "669"
+            startingLineNumber = "725"
+            endingLineNumber = "725"
             landmarkName = "createSound()"
             landmarkType = "7">
          </BreakpointContent>
@@ -553,12 +553,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590884.603635"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "894"
-            endingLineNumber = "894"
-            landmarkName = "renderer(renderer:updateAtTime:)"
+            startingLineNumber = "964"
+            endingLineNumber = "964"
+            landmarkName = "renderer(_:updateAtTime:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -569,12 +569,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657097.382813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "deviceDidMove(motion:error:)"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "deviceDidMove(_:error:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -585,12 +585,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590884.603635"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "849"
-            endingLineNumber = "849"
-            landmarkName = "touchesBegan(touches:withEvent:)"
+            startingLineNumber = "919"
+            endingLineNumber = "919"
+            landmarkName = "touchesBegan(_:withEvent:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -601,12 +601,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590884.603635"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "848"
-            endingLineNumber = "848"
-            landmarkName = "touchesBegan(touches:withEvent:)"
+            startingLineNumber = "918"
+            endingLineNumber = "918"
+            landmarkName = "touchesBegan(_:withEvent:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -617,12 +617,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590884.603635"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "847"
-            endingLineNumber = "847"
-            landmarkName = "touchesBegan(touches:withEvent:)"
+            startingLineNumber = "917"
+            endingLineNumber = "917"
+            landmarkName = "touchesBegan(_:withEvent:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -633,12 +633,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590884.603635"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "898"
-            endingLineNumber = "898"
-            landmarkName = "renderer(renderer:updateAtTime:)"
+            startingLineNumber = "968"
+            endingLineNumber = "968"
+            landmarkName = "renderer(_:updateAtTime:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -649,11 +649,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590884.603635"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "581"
-            endingLineNumber = "581"
+            startingLineNumber = "635"
+            endingLineNumber = "635"
             landmarkName = "cleanScene()"
             landmarkType = "7">
          </BreakpointContent>
@@ -665,11 +665,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
+            startingLineNumber = "430"
+            endingLineNumber = "430"
             landmarkName = "spawnShape()"
             landmarkType = "7">
          </BreakpointContent>
@@ -681,11 +681,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "324"
+            endingLineNumber = "324"
             landmarkName = "setupScene()"
             landmarkType = "7">
          </BreakpointContent>
@@ -697,11 +697,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657097.382813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -713,11 +713,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301"
+            startingLineNumber = "354"
+            endingLineNumber = "354"
             landmarkName = "setupScene()"
             landmarkType = "7">
          </BreakpointContent>
@@ -729,11 +729,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657638.095561"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "286"
-            endingLineNumber = "286"
+            startingLineNumber = "339"
+            endingLineNumber = "339"
             landmarkName = "setupScene()"
             landmarkType = "7">
          </BreakpointContent>
@@ -777,12 +777,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657097.382813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "saveHighscore(score:)"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "saveHighscore(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -793,12 +793,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameViewController.swift"
-            timestampString = "497590278.910803"
+            timestampString = "497657097.382813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "saveHighscore(score:)"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "saveHighscore(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -809,12 +809,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GeometryFighter/GameUtils/GameHelper.swift"
-            timestampString = "497590662.921346"
+            timestampString = "497632764.127318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "getHighScore()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeometryFighter/GameUtils/GameHelper.swift"
+            timestampString = "497632974.014312"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "initGameCenter()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeometryFighter/GameUtils/GameHelper.swift"
+            timestampString = "497633213.913208"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "init()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GeometryFighter/GameViewController.swift"
+            timestampString = "497657638.095561"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "806"
+            endingLineNumber = "806"
+            landmarkName = "touchesBegan(_:withEvent:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
