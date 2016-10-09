@@ -27,6 +27,7 @@
 		950EE53C1D6175CD00776A55 /* CMDeviceMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950EE53B1D6175CD00776A55 /* CMDeviceMotion.swift */; };
 		95BC47761D58E3360018A198 /* tear.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 95BC47751D58E3360018A198 /* tear.scnp */; };
 		95BC477C1D5953350018A198 /* MotionKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BC477B1D5953350018A198 /* MotionKit.swift */; };
+		95FF9B7B1DA9ACF500E760DB /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95FF9B7A1DA9ACF500E760DB /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		950EE53B1D6175CD00776A55 /* CMDeviceMotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMDeviceMotion.swift; sourceTree = "<group>"; };
 		95BC47751D58E3360018A198 /* tear.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = tear.scnp; sourceTree = "<group>"; };
 		95BC477B1D5953350018A198 /* MotionKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionKit.swift; sourceTree = "<group>"; };
+		95FF9B7A1DA9ACF500E760DB /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95FF9B7B1DA9ACF500E760DB /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +99,7 @@
 			children = (
 				35A5CB511B9E040900C6FF5B /* GeometryFighter */,
 				35A5CB501B9E040900C6FF5B /* Products */,
+				95FF9B791DA9ACF500E760DB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,6 +127,14 @@
 				35B6B3C01BAA2AB200CC68E5 /* ShapeType.swift */,
 			);
 			path = GeometryFighter;
+			sourceTree = "<group>";
+		};
+		95FF9B791DA9ACF500E760DB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				95FF9B7A1DA9ACF500E760DB /* GameKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,12 +165,17 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0800;
-				ORGANIZATIONNAME = "Razeware LLC";
+				ORGANIZATIONNAME = "Dandan Song";
 				TargetAttributes = {
 					35A5CB4E1B9E040900C6FF5B = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 9Y89Z8N828;
 						LastSwiftMigration = 0800;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
