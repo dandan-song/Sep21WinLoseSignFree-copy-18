@@ -29,6 +29,7 @@ public enum GameStateType {
     case Playing
     case TapToPlay
     case GameOver
+    case Paused
 }
 
 class GameHelper {
@@ -63,7 +64,7 @@ class GameHelper {
         totalScore = 0
         
         let defaults = NSUserDefaults.standardUserDefaults()
-        // score = defaults.integerForKey("lastScore")
+        totalScore = defaults.integerForKey("totalScore")
         highScore = defaults.integerForKey("highScore")
         level = defaults.integerForKey("level")
         print("highScore, level", highScore, level)

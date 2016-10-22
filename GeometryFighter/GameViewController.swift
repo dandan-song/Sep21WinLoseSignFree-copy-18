@@ -25,12 +25,14 @@ import SceneKit
 import MobileCoreServices
 import SpriteKit
 import GameKit
+import GoogleMobileAds
 
 import CoreMotion
 
 
-class GameViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,GKGameCenterControllerDelegate {
+class GameViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,GKGameCenterControllerDelegate, GADBannerViewDelegate, GADInterstitialDelegate{
     
+    //@IBOutlet weak var myBannerView: UIView!
     var scnView: SCNView!
     var scnScene: SCNScene!
     var backScene: SCNScene!
@@ -68,7 +70,8 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var playGroundN = 0
     var hasCamera = true
     
-    
+    var googleBannerView: GADBannerView!
+    var googleInterS: GADInterstitial!
     
     internal func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController)
     {
@@ -96,7 +99,24 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             
         }
     }
-    
+    func interstitialWillPresentScreen(ad: GADInterstitial!){
+        scnView.pause(ad);
+        game.state = .Paused
+    }
+    func interstitialDidDismissScreen(ad: GADInterstitial!){
+        start = NSDate() //reset start after interstitial
+        scnView.play(ad);
+        game.state = .Playing
+
+    }
+    func adViewWillPresentScreen (ad:GADBannerView){
+        scnView.pause(ad);
+        game.state = .Paused
+     }
+    func adViewDidDismissScreen(ad:GADBannerView){
+        scnView.play(ad);
+        game.state = .Playing
+    }
     //initiate gamecenter
     func authenticateLocalPlayer(){
         
@@ -134,8 +154,35 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         setupSounds()
         
         setupSplash()
-        //game.level = -1
-        //print("level:", game.level)
+        
+        googleBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        googleBannerView.adUnitID = "ca-app-pub-4069508576645875/6464062784"
+        
+        googleBannerView.rootViewController = self
+        let request: GADRequest = GADRequest()
+        request.testDevices = [kGADSimulatorID,"3e68f968ee31233a1a2437ef26f03707" ]
+
+        googleBannerView.loadRequest(request)
+        
+        googleBannerView.frame = CGRectMake(0, view.bounds.height - googleBannerView.frame.size.height, googleBannerView.frame.size.width, googleBannerView.frame.size.height)
+        
+        self.view.addSubview(googleBannerView!)
+        
+        googleInterS = GADInterstitial(adUnitID: "ca-app-pub-4069508576645875/6125985589")
+        
+        googleInterS.delegate = self
+        
+        let request1 = GADRequest()
+        request1.testDevices = [kGADSimulatorID,"3e68f968ee31233a1a2437ef26f03707" ]
+
+        self.googleInterS.loadRequest(request1)
+        
+        /*let request = GADRequest()
+        request.testDevices = [kGADSimulatorID]
+        myBannerView.delegate = self
+        myBannerView.addUnitID = "ca-app-pub-4069508576645875/6464062784"
+        myBannerView.rootVie*/
+        
         
         authenticateLocalPlayer()
         
@@ -775,7 +822,19 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             return
         }
         
+
+        
         if game.state == .TapToPlay {
+            
+            
+  
+           
+            
+            //googleInterS.rootViewController = self
+
+            
+         
+            
             
             let touch = touches.first
             let location = touch!.locationInView(scnView)
@@ -873,7 +932,9 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             game.state = .Playing
             showSplash("")
             self.game.gameCenterNode.hidden = true
-
+            if (self.googleInterS.isReady){
+                self.googleInterS.presentFromRootViewController(self)
+            }
             return
         }
         
