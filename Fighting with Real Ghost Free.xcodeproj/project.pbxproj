@@ -364,7 +364,7 @@
 				);
 				INFOPLIST_FILE = GeometryFighter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "grp.com.blogdns.songbird.Fighting-with-Real-Ghost-Free";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.blogdns.songbird.Fighting-with-Real-Ghost-Free";
 				PRODUCT_NAME = "Fighting with Real Ghost Free";
 				SWIFT_VERSION = 2.3;
 			};
@@ -381,7 +381,7 @@
 				);
 				INFOPLIST_FILE = GeometryFighter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "grp.com.blogdns.songbird.Fighting-with-Real-Ghost-Free";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.blogdns.songbird.Fighting-with-Real-Ghost-Free";
 				PRODUCT_NAME = "Fighting with Real Ghost Free";
 				SWIFT_VERSION = 2.3;
 			};

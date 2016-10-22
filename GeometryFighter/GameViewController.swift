@@ -83,7 +83,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         //check if user is signed in
         if GKLocalPlayer.localPlayer().authenticated {
             
-            let scoreReporter = GKScore(leaderboardIdentifier: "com.blogdns.songbird.FightWithRealGhosts.leaderboard.score") //leaderboard id here
+            let scoreReporter = GKScore(leaderboardIdentifier: "grp.com.blogdns.songbird.FightWithRealGhosts.leaderboard.score") //leaderboard id here
             
             scoreReporter.value = Int64(score) //score variable here (same as above)
             
@@ -141,6 +141,18 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         gc.gameCenterDelegate = self
         vc?.presentViewController(gc, animated: true, completion: nil)
     }
+    func preloadInterstitial(){
+        googleInterS = GADInterstitial(adUnitID: "ca-app-pub-4069508576645875/6125985589")
+        
+        googleInterS.delegate = self
+        
+        let request1 = GADRequest()
+        request1.testDevices = [kGADSimulatorID,"3e68f968ee31233a1a2437ef26f03707" ]
+        
+        self.googleInterS.loadRequest(request1)
+        
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -168,15 +180,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         self.view.addSubview(googleBannerView!)
         
-        googleInterS = GADInterstitial(adUnitID: "ca-app-pub-4069508576645875/6125985589")
-        
-        googleInterS.delegate = self
-        
-        let request1 = GADRequest()
-        request1.testDevices = [kGADSimulatorID,"3e68f968ee31233a1a2437ef26f03707" ]
-
-        self.googleInterS.loadRequest(request1)
-        
+        preloadInterstitial();
         /*let request = GADRequest()
         request.testDevices = [kGADSimulatorID]
         myBannerView.delegate = self
@@ -328,6 +332,9 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             self.view.addSubview(scnView)
             scnScene.background.contents =
             "GeometryFighter.scnassets/Textures/background_Transparent1.png"
+            googleBannerView.removeFromSuperview()
+            self.view.addSubview(googleBannerView!)
+
         }
         else if backGround == 1 {
             
@@ -630,6 +637,8 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                     splashNodes["GameOver"]?.hidden = false
                     game.playSound(scnScene.rootNode, name: "GameOver")
                     game.state = .GameOver
+                    preloadInterstitial();
+
                 }else{
                     splashNodes["GameOver"]?.removeFromParentNode()
                 }
@@ -668,6 +677,8 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                     splashNodes["GameOver"]?.hidden = false
                     game.playSound(scnScene.rootNode, name: "GameOver")
                     game.state = .GameOver
+                    preloadInterstitial();
+
                 }else{
                     splashNodes["GameOver"]?.removeFromParentNode()
                 }
