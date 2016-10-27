@@ -50,6 +50,8 @@ class GameHelper {
     var gameCenterNode:SCNNode!
     var labelNode2:SKLabelNode!
     
+    var AdsFreeNode:SCNNode!
+    
     
     static let sharedInstance = GameHelper()
     
@@ -71,6 +73,7 @@ class GameHelper {
         
         initHUD()
         initGameCenter()
+        initAdsFree()
     }
     func  getHighScore() -> Int {
         return highScore;
@@ -118,17 +121,6 @@ class GameHelper {
     
     func initGameCenter() {
         
-        let skScene = SKScene(size: CGSize(width: 500, height: 75))
-        skScene.backgroundColor = UIColor(white: 0.0, alpha: 0.0)
-        
-        labelNode2 = SKLabelNode(fontNamed: "Menlo-Bold")
-        labelNode2.fontSize = 12
-        labelNode2.position.y = 50
-        labelNode2.position.x = 250
-        labelNode2.text="GameCenter"
-        
-        skScene.addChild(labelNode2)
-        
        let plane = SCNBox(width: 0.8, height: 1.3, length: 1.0, chamferRadius: 0.0)
         
          //let plane = SCNCapsule(capRadius: 0.3, height: 2.5)
@@ -145,6 +137,21 @@ class GameHelper {
         //gameCenterNode.position = SCNVector3Make(0, 0, 0)
         //gameCenterNode.rotation = SCNVector4(x: 1, y: 0, z: 0, w: 3.14159265)
     }
+    func initAdsFree() {
+        
+        let squash = SCNCapsule(capRadius: 0.5, height: 1.5)
+        let material = SCNMaterial()
+        material.lightingModelName = SCNLightingModelConstant
+        material.doubleSided = true
+        
+        material.diffuse.contents = "GeometryFighter.scnassets/Textures/adsFreePumpkin.png"
+        squash.materials = [material]
+        
+        AdsFreeNode = SCNNode(geometry: squash)
+        AdsFreeNode.name = "pumpkin"
+ 
+    }
+
     
     func updateHUD() {
         let scoreFormatted = String(format: "%0\(4)d", score)

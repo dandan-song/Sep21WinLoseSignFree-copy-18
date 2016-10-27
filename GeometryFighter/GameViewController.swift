@@ -30,7 +30,7 @@ import GoogleMobileAds
 import CoreMotion
 
 
-class GameViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,GKGameCenterControllerDelegate, GADBannerViewDelegate, GADInterstitialDelegate{
+class GameViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,GKGameCenterControllerDelegate, GADBannerViewDelegate, GADInterstitialDelegate, UIWebViewDelegate{
     
     //@IBOutlet weak var myBannerView: UIView!
     var scnView: SCNView!
@@ -72,6 +72,9 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     var googleBannerView: GADBannerView!
     var googleInterS: GADInterstitial!
+
+    
+    private var webview: UIWebView!
     
     internal func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController)
     {
@@ -181,11 +184,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.view.addSubview(googleBannerView!)
         
         preloadInterstitial();
-        /*let request = GADRequest()
-        request.testDevices = [kGADSimulatorID]
-        myBannerView.delegate = self
-        myBannerView.addUnitID = "ca-app-pub-4069508576645875/6464062784"
-        myBannerView.rootVie*/
+      
         
         
         authenticateLocalPlayer()
@@ -777,11 +776,13 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func setupHUD() {
         game.hudNode.position = SCNVector3(x: 0.0, y: 4.0, z: 0.0)
         game.gameCenterNode.position = SCNVector3(x: 2.3, y: 2.5, z: 0.0)
+        game.AdsFreeNode.position = SCNVector3(x: 2.3, y: -4.0, z: 0.0)
        
 
         //game.hudNode.physicsBody = SCNPhysicsBody(type: .Static, shape: nil)
         rootsplashNode2.addChildNode(game.hudNode)
         rootsplashNode2.addChildNode(game.gameCenterNode)
+        rootsplashNode2.addChildNode(game.AdsFreeNode)
 
         //cameraNode.addChildNode(game.hudNode)
     }
@@ -838,15 +839,6 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         if game.state == .TapToPlay {
             
             
-  
-           
-            
-            //googleInterS.rootViewController = self
-
-            
-         
-            
-            
             let touch = touches.first
             let location = touch!.locationInView(scnView)
             let hitResults = scnView.hitTest(location, options: nil)
@@ -858,6 +850,17 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                     showLeader();
                     return;
                 }
+                if result.node.name == "pumpkin"   {
+                    webview = UIWebView(frame : self.view.bounds)
+                    webview.delegate = self;
+                    self.view.addSubview(webview)
+                    let url = NSURL(string : "itms-apps://itunes.apple.com/us/app/fighting-with-real-ghost/id1160465117?ls=1&mt=8")
+                    let urlRequest = NSURLRequest(URL: url!)
+                    self.webview.loadRequest(urlRequest)
+                    self.webview.removeFromSuperview()
+                    return;
+                }
+
                 
             }
             //not hit a label then do the play action
@@ -943,6 +946,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             game.state = .Playing
             showSplash("")
             self.game.gameCenterNode.hidden = true
+            self.game.AdsFreeNode.hidden = true
             if (self.googleInterS.isReady){
                 self.googleInterS.presentFromRootViewController(self)
             }
