@@ -644,6 +644,8 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 scnScene.rootNode.runAction(SCNAction.waitForDurationThenRunBlock(5) { (node:SCNNode!) -> Void in
                     self.showSplash("TapToPlay")
                     self.game.gameCenterNode.hidden = false
+                    self.game.AdsFreeNode.hidden = false
+
                     self.game.state = .TapToPlay
                     splashNode.removeFromParentNode()
                     })
@@ -684,7 +686,8 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 scnScene.rootNode.runAction(SCNAction.waitForDurationThenRunBlock(5) { (node:SCNNode!) -> Void in
                     self.showSplash("TapToPlay")
                     self.game.gameCenterNode.hidden = false
-                    
+                    self.game.AdsFreeNode.hidden = false
+
                     self.game.state = .TapToPlay
                     splashNode.removeFromParentNode()
                     })
