@@ -26,10 +26,10 @@ import SpriteKit
 
 
 public enum GameStateType {
-    case Playing
-    case TapToPlay
-    case GameOver
-    case Paused
+    case playing
+    case tapToPlay
+    case gameOver
+    case paused
 }
 
 class GameHelper {
@@ -41,7 +41,7 @@ class GameHelper {
     var lives:Int
     var level:Int
     var totalScore:Int
-    var state = GameStateType.TapToPlay
+    var state = GameStateType.tapToPlay
     
     
     var hudNode:SCNNode!
@@ -57,7 +57,7 @@ class GameHelper {
     
     var sounds:[String:SCNAudioSource] = [:]
     
-    private init() {
+    fileprivate init() {
         level = 0
         score = 0
         highScore = 0
@@ -65,10 +65,10 @@ class GameHelper {
         lives = 3
         totalScore = 0
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        totalScore = defaults.integerForKey("totalScore")
-        highScore = defaults.integerForKey("highScore")
-        level = defaults.integerForKey("level")
+        let defaults = UserDefaults.standard
+        totalScore = defaults.integer(forKey: "totalScore")
+        highScore = defaults.integer(forKey: "highScore")
+        level = defaults.integer(forKey: "level")
         print("highScore, level", highScore, level)
         
         initHUD()
@@ -83,34 +83,36 @@ class GameHelper {
         totalScore = totalScore + score
         print("totalScore:", totalScore)
         highScore = max(currentT, highScore)
-        let defaults = NSUserDefaults.standardUserDefaults()
+        let defaults = UserDefaults.standard
         
-        defaults.setInteger(highScore, forKey: "highScore")
-        defaults.setInteger(level, forKey: "level")
-        defaults.setInteger(totalScore, forKey: "totalScore")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        defaults.set(highScore, forKey: "highScore")
+        defaults.set(level, forKey: "level")
+        defaults.set(totalScore, forKey: "totalScore")
+        UserDefaults.standard.synchronize()
     }
     
-    func getScoreString(length:Int) -> String {
+    func getScoreString(_ length:Int) -> String {
         return String(format: "%0\(length)d", score)
     }
     
     func initHUD() {
         
         let skScene = SKScene(size: CGSize(width: 500, height: 75))
-        skScene.backgroundColor = UIColor(white: 0.0, alpha: 0.0)
+        skScene.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
         
         labelNode = SKLabelNode(fontNamed: "Menlo-Bold")
         labelNode.fontSize = 12
         labelNode.position.y = 50
         labelNode.position.x = 250
         
+        labelNode.fontColor = SKColor.white
+        
         skScene.addChild(labelNode)
         
         let plane = SCNPlane(width: 15, height: 3)
         let material = SCNMaterial()
-        material.lightingModelName = SCNLightingModelConstant
-        material.doubleSided = true
+        material.lightingModel = SCNMaterial.LightingModel.constant
+        material.isDoubleSided = true
         material.diffuse.contents = skScene
         plane.materials = [material]
         
@@ -125,8 +127,8 @@ class GameHelper {
         
          //let plane = SCNCapsule(capRadius: 0.3, height: 2.5)
         let material = SCNMaterial()
-        material.lightingModelName = SCNLightingModelConstant
-        material.doubleSided = true
+        material.lightingModel = SCNMaterial.LightingModel.constant
+        material.isDoubleSided = true
         //geometryNode.geometry?.materials.first?.diffuse.contents = "GeometryFighter.scnassets/Textures/ghostSkingT.png"
 
         material.diffuse.contents = "GeometryFighter.scnassets/Textures/GameCenter.png"
@@ -141,8 +143,8 @@ class GameHelper {
         
         let squash = SCNCapsule(capRadius: 0.5, height: 1.5)
         let material = SCNMaterial()
-        material.lightingModelName = SCNLightingModelConstant
-        material.doubleSided = true
+        material.lightingModel = SCNMaterial.LightingModel.constant
+        material.isDoubleSided = true
         
         material.diffuse.contents = "GeometryFighter.scnassets/Textures/adsFreePumpkin.png"
         squash.materials = [material]
@@ -158,7 +160,7 @@ class GameHelper {
         let currentFormatted = String(format: "%0\(4)d", currentT)
         let highScoreFormatted = String(format: "%0\(5)d", highScore)
         
-        if (state == .GameOver||state == .TapToPlay){
+        if (state == .gameOver||state == .tapToPlay){
             currentT = 0
             labelNode.text = "❤️\(lives) 😎\(highScoreFormatted) 🙉\(currentFormatted) 👻\(scoreFormatted)"
         }else{
@@ -167,33 +169,33 @@ class GameHelper {
         
     }
     
-    func loadSound(name:String, fileNamed:String) {
+    func loadSound(_ name:String, fileNamed:String) {
         if let sound = SCNAudioSource(fileNamed: fileNamed) {
             sound.load()
             sounds[name] = sound
         }
     }
     
-    func playSound(node:SCNNode, name:String) {
+    func playSound(_ node:SCNNode, name:String) {
         let sound = sounds[name]
-        node.runAction(SCNAction.playAudioSource(sound!, waitForCompletion: false))
+        node.runAction(SCNAction.playAudio(sound!, waitForCompletion: false))
     }
     
     func reset() {
-        let defaults = NSUserDefaults.standardUserDefaults()
+        let defaults = UserDefaults.standard
         // score = defaults.integerForKey("lastScore")
-        highScore = defaults.integerForKey("highScore")
-        level = defaults.integerForKey("level")
+        highScore = defaults.integer(forKey: "highScore")
+        level = defaults.integer(forKey: "level")
         score = 0
         lives = 3
         currentT = 0
     }
     
-    func shakeNode(node:SCNNode) {
-        let left = SCNAction.moveBy(SCNVector3(x: -0.2, y: 0.0, z: 0.0), duration: 0.05)
-        let right = SCNAction.moveBy(SCNVector3(x: 0.2, y: 0.0, z: 0.0), duration: 0.05)
-        let up = SCNAction.moveBy(SCNVector3(x: 0.0, y: 0.2, z: 0.0), duration: 0.05)
-        let down = SCNAction.moveBy(SCNVector3(x: 0.0, y: -0.2, z: 0.0), duration: 0.05)
+    func shakeNode(_ node:SCNNode) {
+        let left = SCNAction.move(by: SCNVector3(x: -0.2, y: 0.0, z: 0.0), duration: 0.05)
+        let right = SCNAction.move(by: SCNVector3(x: 0.2, y: 0.0, z: 0.0), duration: 0.05)
+        let up = SCNAction.move(by: SCNVector3(x: 0.0, y: 0.2, z: 0.0), duration: 0.05)
+        let down = SCNAction.move(by: SCNVector3(x: 0.0, y: -0.2, z: 0.0), duration: 0.05)
         
         node.runAction(SCNAction.sequence([
             left, up, down, right, left, right, down, up, right, down, left, up,

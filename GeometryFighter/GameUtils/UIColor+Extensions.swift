@@ -24,22 +24,22 @@ import SceneKit
 
 let UIColorList:[UIColor] = [
   UIColor.blackColor1(),
-  UIColor.whiteColor(),
+  UIColor.white,
   UIColor.redColor1(),
   UIColor.limeColor(),
   UIColor.blueColor1(),
   UIColor.yellowColor1(),
   UIColor.cyanColor1(),
   UIColor.silverColor(),
-  UIColor.grayColor(),
+  UIColor.gray,
   UIColor.maroonColor(),
   UIColor.oliveColor(),
   UIColor.brownColor1(),
-  UIColor.greenColor(),
-  UIColor.lightGrayColor(),
+  UIColor.green,
+  UIColor.lightGray,
   UIColor.magentaColor1(),
-  UIColor.orangeColor(),
-  UIColor.purpleColor(),
+  UIColor.orange,
+  UIColor.purple,
   UIColor.tealColor()
 ]
 

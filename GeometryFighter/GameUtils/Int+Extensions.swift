@@ -23,7 +23,7 @@
 import Foundation
 
 public extension Int {
-  public static func random(min min: Int , max: Int) -> Int {
+  public static func random(min: Int , max: Int) -> Int {
     return Int(arc4random_uniform(UInt32(min - max + 1))) + min
   }
 }

@@ -17,34 +17,34 @@ extension CMDeviceMotion {
         
         let final: SCNVector4
         
-        switch UIApplication.sharedApplication().statusBarOrientation {
+        switch UIApplication.shared.statusBarOrientation {
             
-        case .LandscapeRight:
+        case .landscapeRight:
             
             let cq = GLKQuaternionMakeWithAngleAndAxis(Float(M_PI_2), 0, 1, 0)
             let q = GLKQuaternionMultiply(cq, aq)
             
             final = SCNVector4(x: -q.y, y: q.x, z: q.z, w: q.w)
             
-        case .LandscapeLeft:
+        case .landscapeLeft:
             
             let cq = GLKQuaternionMakeWithAngleAndAxis(Float(-M_PI_2), 0, 1, 0)
             let q = GLKQuaternionMultiply(cq, aq)
             
             final = SCNVector4(x: q.y, y: -q.x, z: q.z, w: q.w)
             
-        case .PortraitUpsideDown:
+        case .portraitUpsideDown:
             
             let cq = GLKQuaternionMakeWithAngleAndAxis(Float(M_PI_2), 1, 0, 0)
             let q = GLKQuaternionMultiply(cq, aq)
             
             final = SCNVector4(x: -q.x, y: -q.y, z: q.z, w: q.w)
             
-        case .Unknown:
+        case .unknown:
             
             fallthrough
             
-        case .Portrait:
+        case .portrait:
             
             let cq = GLKQuaternionMakeWithAngleAndAxis(Float(-M_PI_2), 1, 0, 0)
             let q = GLKQuaternionMultiply(cq, aq)
