@@ -21,8 +21,11 @@
  */
 
 import UIKit
-//import MobileCoreServices
+import MobileCoreServices
 import SceneKit
+import GoogleMobileAds
+//import Firebase
+
 
 
 
@@ -53,6 +56,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                            completion: nil)
  window?.addSubview(testView)
     window?.bringSubviewToFront(gvc.view)*/
+   // FirebaseApp.configure()
+
+    GADMobileAds.configure(withApplicationID: "ca-app-pub-4069508576645875~1304499855")
+
     
     return true
   }

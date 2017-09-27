@@ -42,10 +42,12 @@ class GameHelper {
     var level:Int
     var totalScore:Int
     var state = GameStateType.tapToPlay
+    var winLoseplane = SCNPlane(width: 5, height: 1)
     
     
     var hudNode:SCNNode!
     var labelNode:SKLabelNode!
+    var splashNode:SCNNode!
     
     var gameCenterNode:SCNNode!
     var labelNode2:SKLabelNode!
@@ -62,7 +64,7 @@ class GameHelper {
         score = 0
         highScore = 0
         currentT = 0
-        lives = 3
+        lives = 0
         totalScore = 0
         
         let defaults = UserDefaults.standard
@@ -71,9 +73,10 @@ class GameHelper {
         level = defaults.integer(forKey: "level")
         print("highScore, level", highScore, level)
         
-        initHUD()
+       initHUD()
         initGameCenter()
         initAdsFree()
+        initTapToPlay()
     }
     func  getHighScore() -> Int {
         return highScore;
@@ -97,41 +100,31 @@ class GameHelper {
     
     func initHUD() {
         
-        let skScene = SKScene(size: CGSize(width: 500, height: 75))
-        skScene.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
-        
-        labelNode = SKLabelNode(fontNamed: "Menlo-Bold")
-        labelNode.fontSize = 12
-        labelNode.position.y = 50
-        labelNode.position.x = 250
-        
-        labelNode.fontColor = SKColor.white
-        
-        skScene.addChild(labelNode)
-        
-        let plane = SCNPlane(width: 15, height: 3)
         let material = SCNMaterial()
         material.lightingModel = SCNMaterial.LightingModel.constant
         material.isDoubleSided = true
-        material.diffuse.contents = skScene
-        plane.materials = [material]
         
-        hudNode = SCNNode(geometry: plane)
+      
+        material.diffuse.contents = "GeometryFighter.scnassets/Textures/Tough.png"
+        
+        winLoseplane.materials = [material]
+        
+        hudNode = SCNNode(geometry: winLoseplane)
         hudNode.name = "HUD"
-        hudNode.rotation = SCNVector4(x: 1, y: 0, z: 0, w: 3.14159265)
+       // hudNode.rotation = SCNVector4(x: 1, y: 0, z: 0, w: 3.14159265)   
     }
     
     func initGameCenter() {
-        
-       let plane = SCNBox(width: 0.8, height: 1.3, length: 1.0, chamferRadius: 0.0)
-        
+        //used as ruleboard
+       //let plane = SCNBox(width: 5.0, height: 4.0, length: 0.0, chamferRadius: 0.0)
+    let plane = SCNPlane(width: 5.0, height: 4.0)
          //let plane = SCNCapsule(capRadius: 0.3, height: 2.5)
         let material = SCNMaterial()
         material.lightingModel = SCNMaterial.LightingModel.constant
-        material.isDoubleSided = true
+       // material.isDoubleSided = true
         //geometryNode.geometry?.materials.first?.diffuse.contents = "GeometryFighter.scnassets/Textures/ghostSkingT.png"
 
-        material.diffuse.contents = "GeometryFighter.scnassets/Textures/GameCenter.png"
+        material.diffuse.contents = "GeometryFighter.scnassets/Textures/remember.png"
         plane.materials = [material]
         
         gameCenterNode = SCNNode(geometry: plane)
@@ -139,14 +132,40 @@ class GameHelper {
         //gameCenterNode.position = SCNVector3Make(0, 0, 0)
         //gameCenterNode.rotation = SCNVector4(x: 1, y: 0, z: 0, w: 3.14159265)
     }
-    func initAdsFree() {
+    
+    func initTapToPlay() {
         
-        let squash = SCNCapsule(capRadius: 0.5, height: 1.5)
+        let tapToPlay = SCNPlane(width: 2.5, height: 2.5)
+        
         let material = SCNMaterial()
         material.lightingModel = SCNMaterial.LightingModel.constant
-        material.isDoubleSided = true
         
-        material.diffuse.contents = "GeometryFighter.scnassets/Textures/adsFreePumpkin.png"
+        
+        material.diffuse.contents = "GeometryFighter.scnassets/Textures/THTPlay.png"
+        tapToPlay.materials = [material]
+        
+        splashNode = SCNNode(geometry: tapToPlay)
+        splashNode.name = "TapToPlay"
+        
+        
+        /* splashNode.geometry?.materials.first?.diffuse.contents = "GeometryFighter.scnassets/Textures/THTPlay.png"
+         splashNode = SCNNode(geometry: plane)
+         //splashNode.position = SCNVector3(x: 0, y: -7, z: -10)
+         splashNode.name = "TapToPlay"*/
+        
+        
+        
+    }
+
+    
+    func initAdsFree() {
+        
+        let squash  = SCNPlane(width: 1.0, height: 1.0)
+        let material = SCNMaterial()
+        material.lightingModel = SCNMaterial.LightingModel.constant
+        //material.isDoubleSided = true
+        
+        material.diffuse.contents = "GeometryFighter.scnassets/Textures/adsFree.png"
         squash.materials = [material]
         
         AdsFreeNode = SCNNode(geometry: squash)
@@ -156,16 +175,31 @@ class GameHelper {
 
     
     func updateHUD() {
-        let scoreFormatted = String(format: "%0\(4)d", score)
+        let material = SCNMaterial()
+        material.lightingModel = SCNMaterial.LightingModel.constant
+        material.isDoubleSided = true
+        
+            
+        if lives == 1{
+            material.diffuse.contents = "GeometryFighter.scnassets/Textures/loose.png"
+            
+        }else if lives == 2{
+             material.diffuse.contents = "GeometryFighter.scnassets/Textures/win.png"
+        }else if lives == 0 {
+            material.diffuse.contents = "GeometryFighter.scnassets/Textures/Tough.png"
+        }
+        winLoseplane.materials = [material]
+        
+        /*let scoreFormatted = String(format: "%0\(4)d", score)
         let currentFormatted = String(format: "%0\(4)d", currentT)
         let highScoreFormatted = String(format: "%0\(5)d", highScore)
         
         if (state == .gameOver||state == .tapToPlay){
             currentT = 0
-            labelNode.text = "❤️\(lives) 😎\(highScoreFormatted) 🙉\(currentFormatted) 👻\(scoreFormatted)"
+            labelNode.text = "❤️\(lives) "
         }else{
-            labelNode.text = "❤️\(lives) 😎\(highScoreFormatted) 🙈\(currentFormatted) 👻\(scoreFormatted)"
-        }
+            labelNode.text = "❤️\(lives) "
+        }*/
         
     }
     
@@ -187,7 +221,7 @@ class GameHelper {
         highScore = defaults.integer(forKey: "highScore")
         level = defaults.integer(forKey: "level")
         score = 0
-        lives = 3
+       // lives = 3
         currentT = 0
     }
     
