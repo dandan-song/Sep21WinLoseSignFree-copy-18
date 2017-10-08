@@ -23,10 +23,8 @@
 		35B6B3C11BAA2AB200CC68E5 /* ShapeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6B3C01BAA2AB200CC68E5 /* ShapeType.swift */; };
 		950363921EE5EB22004B232C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 950363911EE5EB22004B232C /* LaunchScreen.storyboard */; };
 		950EE53C1D6175CD00776A55 /* CMDeviceMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950EE53B1D6175CD00776A55 /* CMDeviceMotion.swift */; };
-		951CF37C1DBAA6BC000C87A8 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 951CF37B1DBAA6BC000C87A8 /* GoogleMobileAds.framework */; };
 		951CF3801DBAD24B000C87A8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 951CF37F1DBAD24B000C87A8 /* GoogleService-Info.plist */; };
-		956847B31F75CA420088C8D5 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956847B11F75CA420088C8D5 /* GoogleMobileAds.framework */; };
-		956847B41F75CA420088C8D5 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 956847B21F75CA420088C8D5 /* README.txt */; };
+		953E4E571F7B7FFE00520FAD /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 953E4E551F7B7F8E00520FAD /* GoogleMobileAds.framework */; };
 		957043B11E37F07C006848DD /* foggy.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 957043AF1E37F07C006848DD /* foggy.scnp */; };
 		957043B21E37F07C006848DD /* smoke.png in Resources */ = {isa = PBXBuildFile; fileRef = 957043B01E37F07C006848DD /* smoke.png */; };
 		957043B91E37F763006848DD /* spark.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 957043B71E37F763006848DD /* spark.scnp */; };
@@ -62,10 +60,8 @@
 		35B6B3C01BAA2AB200CC68E5 /* ShapeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapeType.swift; path = ../ShapeType.swift; sourceTree = "<group>"; };
 		950363911EE5EB22004B232C /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		950EE53B1D6175CD00776A55 /* CMDeviceMotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMDeviceMotion.swift; sourceTree = "<group>"; };
-		951CF37B1DBAA6BC000C87A8 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		951CF37F1DBAD24B000C87A8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		956847B11F75CA420088C8D5 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
-		956847B21F75CA420088C8D5 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		953E4E551F7B7F8E00520FAD /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		957043AF1E37F07C006848DD /* foggy.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = foggy.scnp; sourceTree = "<group>"; };
 		957043B01E37F07C006848DD /* smoke.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smoke.png; sourceTree = "<group>"; };
 		957043B71E37F763006848DD /* spark.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = spark.scnp; sourceTree = "<group>"; };
@@ -75,6 +71,7 @@
 		957A18FD1EEB008A0083A305 /* Explode.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Explode.scnp; sourceTree = "<group>"; };
 		959157241DDB9BD700C0064F /* GCHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCHelper.swift; sourceTree = "<group>"; };
 		95BC47751D58E3360018A198 /* tear.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = tear.scnp; sourceTree = "<group>"; };
+		95C4FDF81F85DB6000484A2C /* leave.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leave.png; sourceTree = "<group>"; };
 		95DE4FCF1F60811400390961 /* rainDrop.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = rainDrop.scnp; sourceTree = "<group>"; };
 		95DE4FD11F60812100390961 /* raindrop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = raindrop.png; sourceTree = "<group>"; };
 		95DE4FD61F648DFB00390961 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.scp; name = Base; path = Base.lproj/Trail.scnp; sourceTree = "<group>"; };
@@ -87,9 +84,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				953E4E571F7B7FFE00520FAD /* GoogleMobileAds.framework in Frameworks */,
 				95DFE1181E20A1D3000FFD17 /* SceneKit.framework in Frameworks */,
-				951CF37C1DBAA6BC000C87A8 /* GoogleMobileAds.framework in Frameworks */,
-				956847B31F75CA420088C8D5 /* GoogleMobileAds.framework in Frameworks */,
 				95FF9B7B1DA9ACF500E760DB /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				35B6B3C01BAA2AB200CC68E5 /* ShapeType.swift */,
+				95C4FDF81F85DB6000484A2C /* leave.png */,
 				3546E2D41BB4A0BA0073970F /* Double+Extensions.swift */,
 				3546E2D51BB4A0BA0073970F /* Float+Extensions.swift */,
 				3546E2D61BB4A0BA0073970F /* GameHelper.swift */,
@@ -135,8 +132,8 @@
 		35A5CB461B9E040900C6FF5B = {
 			isa = PBXGroup;
 			children = (
+				953E4E551F7B7F8E00520FAD /* GoogleMobileAds.framework */,
 				951CF37F1DBAD24B000C87A8 /* GoogleService-Info.plist */,
-				951CF37B1DBAA6BC000C87A8 /* GoogleMobileAds.framework */,
 				35A5CB511B9E040900C6FF5B /* GeometryFighter */,
 				35A5CB501B9E040900C6FF5B /* Products */,
 				95FF9B791DA9ACF500E760DB /* Frameworks */,
@@ -168,19 +165,9 @@
 			path = GeometryFighter;
 			sourceTree = "<group>";
 		};
-		956847B01F75CA420088C8D5 /* GoogleMobileAdsSdkiOS-7.24.0 2 */ = {
-			isa = PBXGroup;
-			children = (
-				956847B11F75CA420088C8D5 /* GoogleMobileAds.framework */,
-				956847B21F75CA420088C8D5 /* README.txt */,
-			);
-			path = "GoogleMobileAdsSdkiOS-7.24.0 2";
-			sourceTree = "<group>";
-		};
 		95FF9B791DA9ACF500E760DB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				956847B01F75CA420088C8D5 /* GoogleMobileAdsSdkiOS-7.24.0 2 */,
 				95DFE1171E20A1D3000FFD17 /* SceneKit.framework */,
 				95FF9B7A1DA9ACF500E760DB /* GameKit.framework */,
 			);
@@ -263,7 +250,6 @@
 				957043B91E37F763006848DD /* spark.scnp in Resources */,
 				957043B11E37F07C006848DD /* foggy.scnp in Resources */,
 				35A5CB5C1B9E040A00C6FF5B /* Assets.xcassets in Resources */,
-				956847B41F75CA420088C8D5 /* README.txt in Resources */,
 				35A5CB5A1B9E040A00C6FF5B /* Main.storyboard in Resources */,
 				957A18FC1EEA02F30083A305 /* star.png in Resources */,
 				957A18FE1EEB008A0083A305 /* Explode.scnp in Resources */,
@@ -416,12 +402,14 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-7.24.0\\ 2",
+					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-7.24.0\\ 3",
 				);
 				INFOPLIST_FILE = GeometryFighter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blogdns.songbird.FlyCompeteFree;
 				PRODUCT_NAME = "Magical Pony Race Free";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -435,12 +423,14 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-7.24.0\\ 2",
+					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-7.24.0\\ 3",
 				);
 				INFOPLIST_FILE = GeometryFighter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blogdns.songbird.FlyCompeteFree;
 				PRODUCT_NAME = "Magical Pony Race Free";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
