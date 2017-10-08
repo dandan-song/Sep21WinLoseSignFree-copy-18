@@ -60,7 +60,7 @@ open class GCHelper: NSObject, GKMatchmakerViewControllerDelegate, GKGameCenterC
                 self.delegate?.matchEnded()
             } else {
                 for player in players! as [GKPlayer] {
-                    print("Found player: \(player.alias)")
+                    print("Found player: \(String(describing: player.alias))")
                     self.playerDetails[player.playerID!] = player
                 }
                 self.playerDetails[GKLocalPlayer.localPlayer().playerID!] = GKLocalPlayer.localPlayer()
@@ -96,7 +96,7 @@ open class GCHelper: NSObject, GKMatchmakerViewControllerDelegate, GKGameCenterC
                 }
                 
                 for player in players {
-                    print("Found player: \(player.alias)")
+                    print("Found player: \(String(describing: player.alias))")
                     self.playersDict[player.playerID!] = player
                 }
                 
@@ -120,7 +120,7 @@ open class GCHelper: NSObject, GKMatchmakerViewControllerDelegate, GKGameCenterC
                 if error == nil {
                     self.authenticated = true
                 } else {
-                    print("\(error?.localizedDescription)")
+                    print("\(String(describing: error?.localizedDescription))")
                 }
             }
         } else {
@@ -166,7 +166,7 @@ open class GCHelper: NSObject, GKMatchmakerViewControllerDelegate, GKGameCenterC
         achievement.showsCompletionBanner = true
         GKAchievement.report([achievement], withCompletionHandler: { (error) -> Void in
             if error != nil {
-                print("Error in reporting achievements: \(error)")
+                print("Error in reporting achievements: \(String(describing: error))")
             }
         }) 
     }
@@ -177,7 +177,7 @@ open class GCHelper: NSObject, GKMatchmakerViewControllerDelegate, GKGameCenterC
     open func resetAllAchievements() {
         GKAchievement.resetAchievements { (error) -> Void in
             if error != nil {
-                print("Error resetting achievements: \(error)")
+                print("Error resetting achievements: \(String(describing: error))")
             }
         }
     }
@@ -193,7 +193,7 @@ open class GCHelper: NSObject, GKMatchmakerViewControllerDelegate, GKGameCenterC
         scoreObject.value = Int64(score)
         GKScore.report([scoreObject], withCompletionHandler: { (error) -> Void in
             if error != nil {
-                print("Error in reporting leaderboard scores: \(error)")
+                print("Error in reporting leaderboard scores: \(String(describing: error))")
             }
         }) 
     }
@@ -279,7 +279,7 @@ open class GCHelper: NSObject, GKMatchmakerViewControllerDelegate, GKGameCenterC
             return
         }
         
-        print("Match failed with error: \(error?.localizedDescription)")
+        print("Match failed with error: \(String(describing: error?.localizedDescription))")
         matchStarted = false
         delegate?.matchEnded()
     }

@@ -48,6 +48,11 @@ class GameHelper {
     var hudNode:SCNNode!
     var labelNode:SKLabelNode!
     var splashNode:SCNNode!
+    var homeNode:SCNNode!
+    var ManuNode:SCNNode!
+    var peekNode:SCNNode!
+    var fasterNode:SCNNode!
+    var slowerNode:SCNNode!
     
     var gameCenterNode:SCNNode!
     var labelNode2:SKLabelNode!
@@ -77,6 +82,11 @@ class GameHelper {
         initGameCenter()
         initAdsFree()
         initTapToPlay()
+        manu()
+        home()
+        peek()
+        faster()
+        slower()
     }
     func  getHighScore() -> Int {
         return highScore;
@@ -128,14 +138,14 @@ class GameHelper {
         plane.materials = [material]
         
         gameCenterNode = SCNNode(geometry: plane)
-        gameCenterNode.name = "GameCenter"
+        gameCenterNode.name = "remember"
         //gameCenterNode.position = SCNVector3Make(0, 0, 0)
         //gameCenterNode.rotation = SCNVector4(x: 1, y: 0, z: 0, w: 3.14159265)
     }
     
     func initTapToPlay() {
         
-        let tapToPlay = SCNPlane(width: 2.5, height: 2.5)
+        let tapToPlay = SCNPlane(width: 1.5, height: 1.5)
         
         let material = SCNMaterial()
         material.lightingModel = SCNMaterial.LightingModel.constant
@@ -148,36 +158,104 @@ class GameHelper {
         splashNode.name = "TapToPlay"
         
         
-        /* splashNode.geometry?.materials.first?.diffuse.contents = "GeometryFighter.scnassets/Textures/THTPlay.png"
-         splashNode = SCNNode(geometry: plane)
-         //splashNode.position = SCNVector3(x: 0, y: -7, z: -10)
-         splashNode.name = "TapToPlay"*/
-        
-        
-        
-    }
+     }
 
     
     func initAdsFree() {
         
-        let squash  = SCNPlane(width: 1.0, height: 1.0)
+        let squash  = SCNPlane(width: 0.75, height: 0.4)
         let material = SCNMaterial()
         material.lightingModel = SCNMaterial.LightingModel.constant
-        //material.isDoubleSided = true
+        material.isDoubleSided = true
         
-        material.diffuse.contents = "GeometryFighter.scnassets/Textures/adsFree.png"
+        material.diffuse.contents = "GeometryFighter.scnassets/Textures/AdsFree.png"
         squash.materials = [material]
         
         AdsFreeNode = SCNNode(geometry: squash)
         AdsFreeNode.name = "pumpkin"
  
     }
+    
+    func peek() {
+        
+        let squash  = SCNPlane(width: 0.75, height: 0.4)
+        let material = SCNMaterial()
+        material.lightingModel = SCNMaterial.LightingModel.constant
+        material.isDoubleSided = true
+        
+        material.diffuse.contents = "GeometryFighter.scnassets/Textures/peek.png"
+        squash.materials = [material]
+        
+        peekNode = SCNNode(geometry: squash)
+        peekNode.name = "peek"
+        
+    }
+    func manu() {
+        
+        let squash  = SCNPlane(width: 0.75, height: 0.4)
+        let material = SCNMaterial()
+        material.lightingModel = SCNMaterial.LightingModel.constant
+        material.isDoubleSided = true
+        
+        material.diffuse.contents = "GeometryFighter.scnassets/Textures/manu.png"
+        squash.materials = [material]
+        
+        ManuNode = SCNNode(geometry: squash)
+        ManuNode.name = "manu"
+        
+    }
+    
+    func home() {
+        
+        let squash  = SCNPlane(width: 0.75, height: 0.4)
+        let material = SCNMaterial()
+        material.lightingModel = SCNMaterial.LightingModel.constant
+        material.isDoubleSided = true
+        
+        material.diffuse.contents = "GeometryFighter.scnassets/Textures/home.png"
+        squash.materials = [material]
+        
+        homeNode = SCNNode(geometry: squash)
+        homeNode.name = "home"
+        
+    }
+    
+    func faster() {
+        
+        let squash  = SCNPlane(width: 0.75, height: 0.4)
+        let material = SCNMaterial()
+        material.lightingModel = SCNMaterial.LightingModel.constant
+        material.isDoubleSided = true
+        
+        material.diffuse.contents = "GeometryFighter.scnassets/Textures/faster.png"
+        squash.materials = [material]
+        
+        fasterNode = SCNNode(geometry: squash)
+        fasterNode.name = "faster"
+        
+    }
+    
+    func slower() {
+        
+        let squash  = SCNPlane(width: 0.75, height: 0.4)
+        let material = SCNMaterial()
+        material.lightingModel = SCNMaterial.LightingModel.constant
+        material.isDoubleSided = true
+        
+        material.diffuse.contents = "GeometryFighter.scnassets/Textures/slower.png"
+        squash.materials = [material]
+        
+        slowerNode = SCNNode(geometry: squash)
+        slowerNode.name = "slower"
+        
+    }
+
 
     
     func updateHUD() {
         let material = SCNMaterial()
         material.lightingModel = SCNMaterial.LightingModel.constant
-        material.isDoubleSided = true
+       // material.isDoubleSided = true
         
             
         if lives == 1{
