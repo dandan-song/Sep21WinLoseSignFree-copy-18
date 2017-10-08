@@ -32,7 +32,8 @@ import AVFoundation
 
 
 class GameViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,GKGameCenterControllerDelegate, GADBannerViewDelegate, GADInterstitialDelegate,UIWebViewDelegate, SCNPhysicsContactDelegate{
-    
+    let targetshowsAdd = false
+    var startingTransform: SCNMatrix4!
     let CollisionCategoryUnicorn = 1
     let CollisionCategoryLantern = 2
     let CollisionCategoryTarget1 = 8
@@ -95,6 +96,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var ghostSize2: Float!
     var endTime = 10
     var backGround = 0
+    var speed: Float!
     let imagePicker = UIImagePickerController();
     //var r1 = 0
     var playGroundN = 0
@@ -156,18 +158,18 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 scoreArray, withCompletionHandler:{
                     (error) -> Void in
                     if error != nil {
-                        print("error ", error)
+                        print("error ", error ?? "some error")
                     }
                 }
             )
             
         }
     }
-    func interstitialWillPresentScreen(_ ad: GADInterstitial!){
+    func interstitialWillPresentScreen(_ ad: GADInterstitial){
         scnView.pause(ad);
         game.state = .paused
     }
-    func interstitialDidDismissScreen(_ ad: GADInterstitial!){
+    func interstitialDidDismissScreen(_ ad: GADInterstitial){
         start = Date() //reset start after interstitial
         scnView.play(ad);
         game.state = .playing
@@ -258,7 +260,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
     }*/
     
-    func adView(_ bannerView: GADBannerView!, didFailToReceiveAdWithError error: GADRequestError!) {
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
         print("Fail to receive ads")
         print(error)
     }
@@ -307,7 +309,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         interstitial.load(InterRequest)
 
 
-        
+        self.speed = 0.3
         setupView()
         setupNodes()
         spawnShape1()
@@ -330,7 +332,9 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             motionManager.startDeviceMotionUpdates(to: OperationQueue())
             {
                 motion, error in
-                self.cameraNode.orientation = motion!.gaze(atOrientation: UIApplication.shared.statusBarOrientation)
+                self.cameraNode.orientation = motion!.gaze(atOrientation:
+                    UIApplication.shared.statusBarOrientation
+                )
                 self.rootsplashNode.orientation=self.cameraNode.orientation
                 //let pi = M_PI
                 var vector: SCNVector3 = SCNVector3(0,0,0)
@@ -436,13 +440,17 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 }else if self.target == 4 {
                     vector = SCNVector3(0,0,0)
                 }
-                //self.geometryNode.physicsBody?.clearAllForces();
+                //self.geometryNode.physicsBody?.clearAllForces()
                 
                 let d: CGFloat = sqrt(a*a + b*b + c*c)
                 vector = SCNVector3(a/d, b/d, c/d)
-                let speed:Float = 0.18
-                vector = SCNVector3(vector.x * speed,vector.y * speed, vector.z * speed)
-                //print("vector=", vector)
+                //self.speed = 0.3
+                vector = SCNVector3(vector.x * self.speed,vector.y * self.speed, vector.z * self.speed)
+                //print("speed,vector=", self.speed, vector, self.game.state)
+                if self.game.state == .paused{
+                    //e.g. during an interstitial
+                    self.geometryNode.physicsBody?.clearAllForces()
+                }
                 if self.game.state == .playing{
                     self.geometryNode.physicsBody?.applyForce(vector, asImpulse: false)
                 }
@@ -527,7 +535,7 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         plates[1].physicsBody?.contactTestBitMask = CollisionCategoryUnicorn
         plates[1].physicsBody?.collisionBitMask = -1
         // plates[2].physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-        plates[2].position = SCNVector3(-975, 35, -1000)
+        plates[2].position = SCNVector3(-975, 390, -1000)
         plates[2].physicsBody?.categoryBitMask = CollisionCategoryTarget2
         plates[2].physicsBody?.contactTestBitMask = CollisionCategoryUnicorn
         plates[2].physicsBody?.collisionBitMask = -1
@@ -543,22 +551,22 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             SCNMatrix4MakeRotation(0, 0,
                                    0, 0)
         var tm =
-            SCNMatrix4MakeTranslation(0, 20, 0)
+            SCNMatrix4MakeTranslation(0, 32, 0)
         var tf = SCNMatrix4Mult(rm, tm)
         scnScene.addParticleSystem(stop, transform:tf)
 
         tm =
-            SCNMatrix4MakeTranslation(0, 20, -1000)
+            SCNMatrix4MakeTranslation(0, 32, -1000)
         tf = SCNMatrix4Mult(rm, tm)
         scnScene.addParticleSystem(stop, transform:tf)
         
         tm =
-            SCNMatrix4MakeTranslation(-975, 55, -1000)
+            SCNMatrix4MakeTranslation(-975, 422, -1000)
         tf = SCNMatrix4Mult(rm, tm)
         scnScene.addParticleSystem(stop, transform:tf)
         
         tm =
-            SCNMatrix4MakeTranslation(-1000, 20, -25)
+            SCNMatrix4MakeTranslation(-1000, 32, -25)
         tf = SCNMatrix4Mult(rm, tm)
         scnScene.addParticleSystem(stop, transform:tf)
         
@@ -661,16 +669,16 @@ class GameViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         
         for i in 80...119 {
-            lantens[i].position = SCNVector3(-10-(i-80)*25, (i-80)*1, -25*40)
+            lantens[i].position = SCNVector3(-10-(i-80)*25, (i-80)*10, -25*40)
             scnScene.rootNode.addChildNode(lantens[i])
         }
         
         for i in 120...159 {
-            lantens[i].position = SCNVector3(-985, 1*(160-i), -975 + 25*(i-120))
+            lantens[i].position = SCNVector3(-985, 10*(160-i), -975 + 25*(i-120))
             scnScene.rootNode.addChildNode(lantens[i])
         }
         
-        for i in 160...199 {
+        for i in 160...197 {
             lantens[i].position = SCNVector3(-985+25*(i-159), 0, 0)
                         scnScene.rootNode.addChildNode(lantens[i])
         }
@@ -779,13 +787,10 @@ func gameOver(_ didLocalPlayerWin: Bool) {
     
     func spawnShape1() {
         geometryNode = SCNNode()
-        geometryNode = emptyScene.rootNode
-
-        emptyScene.rootNode.addChildNode(plainUnicorn)
-      //  let unicornbody = SCNNode()
-    
-        //unicornbody.position = SCNVector3(x: 0, y: 18, z: 6)
-        geometryNode.position = SCNVector3(x: 0, y: 5, z: -5)
+        let unicornScene = SCNScene(named: "GeometryFighter.scnassets/Textures/witch.scn")
+        geometryNode = unicornScene!.rootNode
+        geometryNode.position = SCNVector3(x: 0, y: 15, z: -5)
+        startingTransform = geometryNode.transform
         let color = UIColor.random()
         //let stars = SCNParticleSystem(named: "spark.scnp", inDirectory: nil)!
         let stars = SCNParticleSystem(named: "spark.scnp", inDirectory: nil)!
@@ -829,46 +834,7 @@ func gameOver(_ didLocalPlayerWin: Bool) {
     }
     func updateScene() {
         
-        if target == 0 && oldtarget != 0 && oldtarget != 3{
-            oldtarget = target
-            let unicornScene = SCNScene(named: "GeometryFighter.scnassets/Textures/plainUnicorn.dae")
-            replaceUnicorn(unicornScene!.rootNode)
-            /*if self.game.state == .tapToPlay{
-                scnView.pointOfView = FrontcameraNode
-                let turn = SCNAction.rotate(by: CGFloat(Float.pi*2), around: SCNVector3Make(0, 1, 0), duration: 8)
-                self.cameraOrbitNode.runAction(turn)
-            
-            }*/
-         
-        }
-       else if target == 1 && oldtarget != 1{
-            oldtarget = target
-           
-            let unicornScene = SCNScene(named: "GeometryFighter.scnassets/Textures/plainUnicorn1.dae")
-            replaceUnicorn(unicornScene!.rootNode)
-   
-        }else if target == 2 && oldtarget != 2{
-            oldtarget = target
-            
-            let unicornScene = SCNScene(named: "GeometryFighter.scnassets/Textures/plainUnicorn2.dae")
-            replaceUnicorn(unicornScene!.rootNode)
-            
-        }else if target == 3 && oldtarget != 3{
-            oldtarget = target
-            
-            let unicornScene = SCNScene(named: "GeometryFighter.scnassets/Textures/plainUnicorn3.dae")
-            replaceUnicorn(unicornScene!.rootNode)
-            print("oldtarget",oldtarget)
-            
-        }else if target == 0 && oldtarget == 3{
-            //not working
-            oldtarget = target
-            
-            let unicornScene = SCNScene(named: "GeometryFighter.scnassets/Textures/plainUnicorn.dae")
-            replaceUnicorn(unicornScene!.rootNode)
-            
-        }
-        
+       
         
 
         
@@ -880,15 +846,30 @@ func gameOver(_ didLocalPlayerWin: Bool) {
     func setupHUD() {
         game.hudNode.position = SCNVector3(x: 0.0, y: 4.3, z: 0.0)
         game.gameCenterNode.position = SCNVector3(x: 0, y: 1.0, z: 0.0)
-        game.AdsFreeNode.position = SCNVector3(x: 2.0, y: -4, z: 0.0)
-        game.splashNode.position = SCNVector3(x: 0, y: -7, z: -10)
+        game.homeNode.position = SCNVector3(x: -2.3, y: 4.2, z: 0.0)
+        game.ManuNode.position = SCNVector3(x: -2.3, y: 3.4, z: 0.0)
+        game.AdsFreeNode.position = SCNVector3(x: -2.3, y: -4, z: 0.0)
+        game.splashNode.position = SCNVector3(x: 0, y: -4, z: 0.0)
+        game.peekNode.position = SCNVector3(x: -2.3, y: 5, z: 0.0)
+        game.fasterNode.position = SCNVector3(x: -2.3, y: -2, z: 0.0)
+        game.slowerNode.position = SCNVector3(x: -2.3, y: -3, z: 0.0)
        
 
         rootsplashNode2.addChildNode(game.hudNode)
         rootsplashNode2.addChildNode(game.gameCenterNode)
         rootsplashNode2.addChildNode(game.AdsFreeNode)
+        rootsplashNode2.addChildNode(game.ManuNode)
+        rootsplashNode2.addChildNode(game.homeNode)
         rootsplashNode2.addChildNode(game.splashNode)
+        rootsplashNode2.addChildNode(game.peekNode)
+        rootsplashNode2.addChildNode(game.fasterNode)
+        rootsplashNode2.addChildNode(game.slowerNode)
        cameraNode.addChildNode(rootsplashNode2)
+        
+        self.game.homeNode.isHidden = true
+        self.game.ManuNode.isHidden = true
+        self.game.slowerNode.isHidden = true
+        self.game.fasterNode.isHidden = true
        // FrontcameraNode.addChildNode(game.hudNode)
     }
     
@@ -931,60 +912,113 @@ func gameOver(_ didLocalPlayerWin: Bool) {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        if game.state == .playing && touch == 0{
-            
-            scnView.pointOfView = FrontcameraNode
-            let turn = SCNAction.rotate(by: CGFloat(Double.pi*2), around: SCNVector3Make(0, 1, 0), duration: 10)
-            cameraOrbitNode.runAction(turn)
-            
-            game.playSound(scnScene.rootNode, name: "windBell")
-            touch = 1
-            
-        }
         
         
+        let Touch = touches.first
+        let location = Touch!.location(in: scnView)
+        let hitResults = scnView.hitTest(location, options: nil)
         
-        if game.state == .tapToPlay {
-            target = 0
-            start = Date()
-            
-            //showSplash("")
-            
-            let touch = touches.first
-            let location = touch!.location(in: scnView)
-            let hitResults = scnView.hitTest(location, options: nil)
-            
-            if hitResults.count > 0 {
-                let result: SCNHitTestResult! = hitResults[0]
-                if result.node.name == "pumpkin"   {
-                    webview = UIWebView(frame : self.view.bounds)
-                    webview.delegate = self;
-                    self.view.addSubview(webview)
-                    let url = URL(string : "itms-apps://itunes.apple.com/us/app/fighting-with-real-ghost/id1160465117?ls=1&mt=8")
-                    let urlRequest = URLRequest(url: url!)
-                    self.webview.loadRequest(urlRequest)
-                    self.webview.removeFromSuperview()
-                    return;
+        if hitResults.count > 0 {
+            let result: SCNHitTestResult! = hitResults[0]
+            // if result.node.name == "pumpkin"   {
+            if result.node.name == "pumpkin"   {
+                webview = UIWebView(frame : self.view.bounds)
+                webview.delegate = self;
+                self.view.addSubview(webview)
+                let url = URL(string : "itms-apps://itunes.apple.com/us/app/magical-halloween-race/id1173703328?ls=1&mt=8")
+                
+                let urlRequest = URLRequest(url: url!)
+                self.webview.loadRequest(urlRequest)
+                self.webview.removeFromSuperview()
+                return;
+            }else if result.node.name == "remember"{
+                self.game.gameCenterNode.isHidden = true
+                self.game.ManuNode.isHidden = false
+            }else if result.node.name == "home"{
+                self.geometryNode.transform = startingTransform;
+                /*
+                if self.target == 1{
+                    self.geometryNode.transform = self.geometryNode.presentation.transform
+                    self.geometryNode.eulerAngles.y = Float(0)
+                    
+                }else if self.target == 2{
+                    self.geometryNode.transform = self.geometryNode.presentation.transform
+                    self.geometryNode.eulerAngles.y = Float(-1*Double.pi)
+                    
+                }else if self.target == 3{
+                    self.geometryNode.transform = self.geometryNode.presentation.transform
+                    self.geometryNode.eulerAngles.y = Float(0)
                 }
+ */
+                self.game.homeNode.isHidden = true
+                self.game.gameCenterNode.isHidden = false
+                self.game.AdsFreeNode.isHidden = false
+                self.game.hudNode.isHidden = false
+                self.game.splashNode.isHidden = false
+                self.geometryNode.physicsBody?.clearAllForces()
+                self.game.ManuNode.isHidden = true
+                self.game.fasterNode.isHidden = true
+                self.game.slowerNode.isHidden = true
+                self.game.peekNode.isHidden = false
+                game.state = .tapToPlay
+                game.reset()
                 
                 
+                self.scnView.pointOfView = self.cameraNode
+                
+                self.geometryNode.position = SCNVector3(x: 0, y: 10, z: -5)
+                
+                
+            }else if result.node.name == "manu"{
+                self.game.ManuNode.isHidden = true
+                self.game.gameCenterNode.isHidden = false
+            }else if result.node.name == "TapToPlay"{
+                game.state = .playing
+                target = 0
+                start = Date()
+                self.game.gameCenterNode.isHidden = true
+                //self.game.AdsFreeNode.isHidden = true
+                self.game.hudNode.isHidden = true
+                self.game.splashNode.isHidden = true
+                self.game.homeNode.isHidden = false
+                self.game.ManuNode.isHidden = false
+                self.game.peekNode.isHidden = false
+                self.game.fasterNode.isHidden = false
+                self.game.slowerNode.isHidden = false
+            }else if result.node.name == "peek"&&touch == 0{
+                
+                scnView.pointOfView = FrontcameraNode
+                let turn = SCNAction.rotate(by: CGFloat(Double.pi*2), around: SCNVector3Make(0, 1, 0), duration: 10)
+                cameraOrbitNode.runAction(turn)
+                self.game.peekNode.isHidden = true
+                game.playSound(scnScene.rootNode, name: "foghorn")
+                //touch = 1
+                scnScene.rootNode.runAction(SCNAction.waitForDurationThenRunBlock(10) { (node:SCNNode!) -> Void in
+                    self.scnView.pointOfView = self.cameraNode
+                    
+                })
             }
-
-            self.game.gameCenterNode.isHidden = true
-            self.game.AdsFreeNode.isHidden = true
-            self.game.hudNode.isHidden = true
-            self.game.splashNode.isHidden = true
-            game.state = .playing
-            
-            //  playerAuthenticated()
-            game.reset()
+            else if result.node.name == "faster"{
+                self.game.slowerNode.isHidden = false
+                if speed < 0.6{
+                    speed = speed + 0.1
+                }else{
+                    self.game.fasterNode.isHidden = true
+                }
+            }
+            else if result.node.name == "slower"{
+                self.game.fasterNode.isHidden = false
+                if speed > 0.1{
+                    speed = speed - 0.1
+                }else{
+                    self.game.slowerNode.isHidden = true
+                }
+            }
             
         }
+        
         
     }
-    
-    
-  
 
         
     
@@ -1028,10 +1062,10 @@ func gameOver(_ didLocalPlayerWin: Bool) {
         
         if contactNode.physicsBody?.categoryBitMask == CollisionCategoryTarget0&&target == 0 {
             
-            if (interstitial.isReady) {
+            if (targetshowsAdd && interstitial.isReady) {
                 interstitial.present(fromRootViewController: self)
             }
-
+            self.scnView.pointOfView = self.cameraNode
             setHale()
             setRain()
            start = Date()
@@ -1051,7 +1085,7 @@ func gameOver(_ didLocalPlayerWin: Bool) {
         }
         else if contactNode.physicsBody?.categoryBitMask == CollisionCategoryTarget0&&target == 3 {
 
-            if interstitial.isReady {
+            if (targetshowsAdd && interstitial.isReady) {
                 interstitial.present(fromRootViewController: self)
             }
             touch = 0
@@ -1091,7 +1125,11 @@ func gameOver(_ didLocalPlayerWin: Bool) {
                 self.game.hudNode.isHidden = false
                 self.game.splashNode.isHidden = false
                 self.game.AdsFreeNode.isHidden = false
-                self.geometryNode.position = SCNVector3(x: 0, y: 5, z: -5)
+                self.geometryNode.position = SCNVector3(x: 0, y: 15, z: -5)
+                self.game.peekNode.isHidden = false
+                self.game.fasterNode.isHidden = true
+                self.game.slowerNode.isHidden = true
+                
                 self.target = 0
                 
                 //self.game.lives = 0
@@ -1108,13 +1146,14 @@ func gameOver(_ didLocalPlayerWin: Bool) {
             
         } else if contactNode.physicsBody?.categoryBitMask == CollisionCategoryTarget1&&target == 0 {
             
-            if interstitial.isReady {
+            if (targetshowsAdd && interstitial.isReady) {
                 interstitial.present(fromRootViewController: self)
             }
             
             count = 0
             touch = 0
             playBackgroundMusic("GeometryFighter.scnassets/Sounds/MulberryBush.m4a")
+            self.game.peekNode.isHidden = false
             if game.state == .playing {
                 start = Date()
             }
@@ -1134,15 +1173,22 @@ func gameOver(_ didLocalPlayerWin: Bool) {
             let turn1 = SCNAction.rotate(by: CGFloat(2*Float.pi), around: SCNVector3Make(0, 1, 0), duration: 8)
             self.cameraOrbitNode.runAction(turn1)
             preloadInterstitial()
+            self.cameraOrbitNode.runAction(turn1)
+            
+            scnScene.rootNode.runAction(SCNAction.waitForDurationThenRunBlock(8) { (node:SCNNode!) -> Void in
+                self.scnView.pointOfView = self.cameraNode
+            })
+
             
             target = 1
             
         }else if contactNode.physicsBody?.categoryBitMask == CollisionCategoryTarget2&&target == 1 {
             
-            if interstitial.isReady {
+            if (targetshowsAdd && interstitial.isReady) {
                 interstitial.present(fromRootViewController: self)
             }
             
+            self.game.peekNode.isHidden = false
             touch = 0
             start = Date()
             removeHale()
@@ -1152,6 +1198,10 @@ func gameOver(_ didLocalPlayerWin: Bool) {
             scnView.pointOfView = FrontcameraNode
             let turn1 = SCNAction.rotate(by: CGFloat(2*Float.pi), around: SCNVector3Make(0, 1, 0), duration: 8)
             self.cameraOrbitNode.runAction(turn1)
+            scnScene.rootNode.runAction(SCNAction.waitForDurationThenRunBlock(8) { (node:SCNNode!) -> Void in
+                self.scnView.pointOfView = self.cameraNode
+                 })
+
             
             
             game.playSound(scnScene.rootNode, name: "foghorn")
@@ -1161,8 +1211,8 @@ func gameOver(_ didLocalPlayerWin: Bool) {
             preloadInterstitial()
             target = 2
         }else if contactNode.physicsBody?.categoryBitMask == CollisionCategoryTarget3&&target == 2 {
-            
-            if interstitial.isReady {
+            self.game.peekNode.isHidden = false
+            if (targetshowsAdd && interstitial.isReady) {
                 interstitial.present(fromRootViewController: self)
             }
             touch = 0
@@ -1187,7 +1237,11 @@ func gameOver(_ didLocalPlayerWin: Bool) {
             let turn1 = SCNAction.rotate(by: CGFloat(2*Float.pi), around: SCNVector3Make(0, 1, 0), duration: 8)
             self.cameraOrbitNode.runAction(turn1)
             
-            // contactNode.hidden = true
+            scnScene.rootNode.runAction(SCNAction.waitForDurationThenRunBlock(8) { (node:SCNNode!) -> Void in
+                self.scnView.pointOfView = self.cameraNode
+             })
+
+            
             game.playSound(scnScene.rootNode, name: "foghorn")
             game.playSound(scnScene.rootNode, name: "windBell")
             self.geometryNode.transform = self.geometryNode.presentation.transform
@@ -1221,7 +1275,7 @@ extension GameViewController: SCNSceneRendererDelegate {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time:
         TimeInterval) {
         
-        updateScene()
+       // updateScene()
         
        // handleGoodCollision();
 
@@ -1235,14 +1289,13 @@ extension GameViewController: SCNSceneRendererDelegate {
             let timeInterval: Double = end.timeIntervalSince(start)
             
             
-                if Double (timeInterval) > 180{
+                if Double (timeInterval) > 140{
                     game.lives = 1
                     game.updateHUD()
-                    if interstitial.isReady {
-                        interstitial.present(fromRootViewController: self)
-                    }
+                    self.geometryNode.physicsBody?.clearAllForces()
 
-                    
+
+                    /*
                     if self.target == 1{
                         self.geometryNode.transform = self.geometryNode.presentation.transform
                         self.geometryNode.eulerAngles.y = Float(0)
@@ -1255,21 +1308,31 @@ extension GameViewController: SCNSceneRendererDelegate {
                         self.geometryNode.transform = self.geometryNode.presentation.transform
                         self.geometryNode.eulerAngles.y = Float(0)
                     }
-                   
+                    */
+                    self.geometryNode.transform = startingTransform
                     //self.showSplash("TapToPlay")
                     //self.setupSplash()
-                    preloadInterstitial()
                     self.game.state = .tapToPlay
-                    
+
                     self.scnView.pointOfView = self.cameraNode
                     self.game.gameCenterNode.isHidden = false
                     self.game.hudNode.isHidden = false
                     self.game.AdsFreeNode.isHidden = false
                     self.game.splashNode.isHidden = false
+                    self.game.homeNode.isHidden = true
+                    self.game.ManuNode.isHidden = true
+                    self.game.peekNode.isHidden = false
+                    self.game.fasterNode.isHidden = true
+                    self.game.slowerNode.isHidden = true
                     self.geometryNode.position = SCNVector3(x: 0, y: 5, z: -5)
                     self.target = 0
                     self.count = 0
                     self.touch = 0
+                    if interstitial.isReady {
+                        interstitial.present(fromRootViewController: self)
+                    }
+                    preloadInterstitial()
+
                 }
             }
 

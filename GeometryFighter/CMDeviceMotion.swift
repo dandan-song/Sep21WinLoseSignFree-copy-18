@@ -16,26 +16,27 @@ extension CMDeviceMotion {
         let aq = GLKQuaternionMake(Float(attitude.x), Float(attitude.y), Float(attitude.z), Float(attitude.w))
         
         let final: SCNVector4
+        let halfpi = Float.pi / 2
         
         switch UIApplication.shared.statusBarOrientation {
             
         case .landscapeRight:
             
-            let cq = GLKQuaternionMakeWithAngleAndAxis(Float(M_PI_2), 0, 1, 0)
+            let cq = GLKQuaternionMakeWithAngleAndAxis(Float(halfpi), 0, 1, 0)
             let q = GLKQuaternionMultiply(cq, aq)
             
             final = SCNVector4(x: -q.y, y: q.x, z: q.z, w: q.w)
             
         case .landscapeLeft:
             
-            let cq = GLKQuaternionMakeWithAngleAndAxis(Float(-M_PI_2), 0, 1, 0)
+            let cq = GLKQuaternionMakeWithAngleAndAxis(Float(-halfpi), 0, 1, 0)
             let q = GLKQuaternionMultiply(cq, aq)
             
             final = SCNVector4(x: q.y, y: -q.x, z: q.z, w: q.w)
             
         case .portraitUpsideDown:
             
-            let cq = GLKQuaternionMakeWithAngleAndAxis(Float(M_PI_2), 1, 0, 0)
+            let cq = GLKQuaternionMakeWithAngleAndAxis(Float(halfpi), 1, 0, 0)
             let q = GLKQuaternionMultiply(cq, aq)
             
             final = SCNVector4(x: -q.x, y: -q.y, z: q.z, w: q.w)
@@ -46,7 +47,7 @@ extension CMDeviceMotion {
             
         case .portrait:
             
-            let cq = GLKQuaternionMakeWithAngleAndAxis(Float(-M_PI_2), 1, 0, 0)
+            let cq = GLKQuaternionMakeWithAngleAndAxis(Float(-halfpi), 1, 0, 0)
             let q = GLKQuaternionMultiply(cq, aq)
             
             final = SCNVector4(x: q.x, y: q.y, z: q.z, w: q.w)
